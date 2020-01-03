@@ -34,7 +34,7 @@ namespace AquaServiceSPA.Services
         MacroResult MacroCompute(
             double liters,
             double containerCapacity,
-            double timesAWeak,
+            double timesAWeek,
             double nitrogen,
             double phosphorus,
             double potassium,

@@ -66,16 +66,16 @@ namespace AquaServiceSPA.Services
         public MacroResult MacroCompute(
             double aquaLiters,
             double containerCapacity,
-            double timesAWeak,
+            double timesAWeek,
             double nitrogen,
             double phosphorus,
             double potassium,
             double magnesium)
         {
-            var weaklyKNO3Dose = GramsSalt(nitrogen,
+            var weeklyKNO3Dose = GramsSalt(nitrogen,
                    aquaLiters,
                    Percent(KNO3ContentN));
-            var weaklyKH2PO4Dose = GramsSalt(phosphorus,
+            var weeklyKH2PO4Dose = GramsSalt(phosphorus,
                 aquaLiters,
                 Percent(KH2PO4ContentP));
             var NO3Kppm = Ppm(Percent(KNO3ContentK),
@@ -84,32 +84,32 @@ namespace AquaServiceSPA.Services
                 aquaLiters);
             var K2SO4Other = potassium - (NO3Kppm + KH2SPO4Kppm) > 0 ?
                 potassium - (NO3Kppm + KH2SPO4Kppm) : 0;
-            var weaklyK2SO4Dose = GramsSalt(K2SO4Other,
+            var weeklyK2SO4Dose = GramsSalt(K2SO4Other,
                 aquaLiters,
                 Percent(K2SO4ContentK));
-            var weaklyMgSO4Dose = GramsSalt(magnesium,
+            var weeklyMgSO4Dose = GramsSalt(magnesium,
                 aquaLiters,
                 Percent(MgSO47H2OContentMg));
-            double fertililizerWeaklyDose = 0;
-            fertililizerWeaklyDose += Solubility(weaklyKNO3Dose,
+            double fertililizerWeeklyDose = 0;
+            fertililizerWeeklyDose += Solubility(weeklyKNO3Dose,
                 KNO3SolubilityGramsPer100Ml);
-            fertililizerWeaklyDose += Solubility(weaklyKH2PO4Dose,
+            fertililizerWeeklyDose += Solubility(weeklyKH2PO4Dose,
                 KH2PO4SolubilityGramsPer100Ml);
-            fertililizerWeaklyDose += Solubility(weaklyK2SO4Dose,
+            fertililizerWeeklyDose += Solubility(weeklyK2SO4Dose,
                 K2SO4SolubilityGramsPer100Ml);
-            fertililizerWeaklyDose += Solubility(weaklyMgSO4Dose,
+            fertililizerWeeklyDose += Solubility(weeklyMgSO4Dose,
                 MgSO4SolubilityGramsPer100Ml);
-            fertililizerWeaklyDose = Math.Round(fertililizerWeaklyDose, MidpointRounding.ToEven);
-            while (fertililizerWeaklyDose % timesAWeak != 0)
-                fertililizerWeaklyDose++;
-            var saltMultiplier = containerCapacity / fertililizerWeaklyDose;
+            fertililizerWeeklyDose = Math.Round(fertililizerWeeklyDose, MidpointRounding.ToEven);
+            while (fertililizerWeeklyDose % timesAWeek != 0)
+                fertililizerWeeklyDose++;
+            var saltMultiplier = containerCapacity / fertililizerWeeklyDose;
             var macroResult = new MacroResult
             {
-                singleDose = fertililizerWeaklyDose / timesAWeak,
-                kno3 = Math.Round((weaklyKNO3Dose * saltMultiplier), 2),
-                kh2po4 = Math.Round((weaklyKH2PO4Dose * saltMultiplier), 2),
-                k2so4 = Math.Round((weaklyK2SO4Dose * saltMultiplier), 2),
-                mgso4 = Math.Round((weaklyMgSO4Dose * saltMultiplier), 2)
+                singleDose = fertililizerWeeklyDose / timesAWeek,
+                kno3 = Math.Round((weeklyKNO3Dose * saltMultiplier), 2),
+                kh2po4 = Math.Round((weeklyKH2PO4Dose * saltMultiplier), 2),
+                k2so4 = Math.Round((weeklyK2SO4Dose * saltMultiplier), 2),
+                mgso4 = Math.Round((weeklyMgSO4Dose * saltMultiplier), 2)
             };
             return macroResult;
         }
