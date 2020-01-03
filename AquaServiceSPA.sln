@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaServiceSPA", "AquaServiceSPA.csproj", "{14BF6EE7-B2F8-4753-B0FD-200EE8727CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaServiceSPA", "AquaServiceSPA.csproj", "{14BF6EE7-B2F8-4753-B0FD-200EE8727CB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		LessCompiler = 14bf6ee7-b2f8-4753-b0fd-200ee8727cb0
 		SolutionGuid = {75045B4E-06E5-4F05-91A9-DBDBD93FF0DF}
 	EndGlobalSection
 EndGlobal

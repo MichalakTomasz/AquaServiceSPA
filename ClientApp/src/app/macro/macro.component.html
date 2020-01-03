@@ -1,0 +1,96 @@
+<div class="panel offset-d-h4">
+    <h2 class="offset-1 offset-u-h2 offset-d-h2">Kalkulator Makro</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="col offset-1">
+                <h5>Paramtery do sporządznia nawozu:</h5>
+                <div class="form-group">
+                    <label>Ilość wody netto w akwarium:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1 first-input"
+                        formControlName="aquaLiters" />
+                </div>
+                <div class="form-group">
+                    <label>Ilość wody w jakiej będzie sporządzany nawóz:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
+                        formControlName="containerCapacity" />
+                </div>
+                <div class="form-group">
+                    <label>Ile razy w tygodniu będzie dawkowany nawóz:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
+                        formControlName="timesAWeek" />
+                </div>
+            </div>
+            <div class="col">
+                <h5>Jakie stężenia poszczególnych pierwiastków mg/l chcesz uzyskać:</h5>
+                <div class="form-group">
+                    <label>Azot:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
+                        formControlName="nitrogen" />
+                </div>
+                <div class="form-group">
+                    <label>Fosfor:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
+                        formControlName="phosphorus" />
+                </div>
+                <div class="form-group">
+                    <label>Potas:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
+                        formControlName="potassium" />
+                </div>
+                <div class="form-group">
+                    <label>Magnez:</label>
+                    <input 
+                        class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
+                        formControlName="magnesium" />
+                </div>
+            </div>
+        </div>
+        <div class="form-row offset-u-h2">
+            <a class="btn btn-secondary info-macro offset-1">Instrukcja</a>
+            <button class="btn btn-info offset-5" type="submit">Oblicz</button>
+        </div>
+    </form>
+    <div *ngIf="macroResult?.kno3 !== undefined" class="text-center offset-u-h2">
+        <h5>Do roztworu należy dodać następujące ilości gram soli:</h5>
+        <table class="tableCenter">
+            <tr>
+                <td>KNO3:</td>
+                <td>
+                    <strong>{{macroResult?.kno3}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>KH2PO4:</td>
+                <td>
+                    <strong>{{macroResult?.kh2po4}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>K2SO4:</td>
+                <td>
+                    <strong>{{macroResult?.k2so4}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>MgSO4*7H2O4:</td>
+                <td>
+                    <strong>{{macroResult?.mgso4}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span>Jednorazowa dawka nawozu: </span>
+                    <strong>{{macroResult?.singleDose}}</strong>
+                    <span> ml</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="macroResult?.kno3 === undefined" class="offset-d-h12"></div>
+</div>

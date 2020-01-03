@@ -1,16 +1,144 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.panel{
+  background-color: lightblue;
+}
+.offset-d-h2 {
+  padding-bottom: 2em;
 }
 
-code {
-  color: #e01a76;
+.offset-d-h3 {
+  padding-bottom: 3em;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.offset-d-h4 {
+  padding-bottom: 4em;
+}
+
+.offset-d-h5 {
+  padding-bottom: 5em;
+}
+
+.offset-d-h6 {
+  padding-bottom: 6em;
+}
+
+.offset-d-h7 {
+  padding-bottom: 7em;
+}
+
+.offset-d-h8 {
+  padding-bottom: 8em;
+}
+
+.offset-d-h9 {
+  padding-bottom: 9em;
+}
+
+.offset-d-h10 {
+  padding-bottom: 10em;
+}
+
+.offset-d-h11 {
+  padding-bottom: 11em;
+}
+
+.offset-d-h12 {
+  padding-bottom: 12em;
+}
+
+.offset-d-h15 {
+  padding-bottom: 15em;
+}
+
+.offset-d-h16 {
+  padding-bottom: 16em;
+}
+
+.offset-d-h17 {
+  padding-bottom: 17em;
+}
+
+.offset-d-h18 {
+  padding-bottom: 18em;
+}
+
+.offset-d-h19 {
+  padding-bottom: 19em;
+}
+
+.offset-d-h20 {
+  padding-bottom: 20em;
+}
+
+.offset-d-h21 {
+  padding-bottom: 21em;
+}
+
+.offset-d-h22 {
+  padding-bottom: 22em;
+}
+
+.offset-d-h30 {
+  padding-bottom: 30em;
+}
+
+.offset-d-h34 {
+  padding-bottom: 34em;
+}
+
+.offset-d-h38 {
+  padding-bottom: 38em;
+}
+
+.offset-d-h40 {
+  padding-bottom: 40em;
+}
+
+.offset-d-h42 {
+  padding-bottom: 42em;
+}
+
+.offset-d-h43 {
+  padding-bottom: 43em;
+}
+
+.offset-d-h44 {
+  padding-bottom: 44em;
+}
+
+.offset-d-h45 {
+  padding-bottom: 45em;
+}
+
+.offset-u-h1 {
+  padding-top: 1em;
+}
+
+.offset-u-h2 {
+  padding-top: 2em;
+}
+
+.offset-u-h3 {
+  padding-top: 3em;
+}
+
+.offset-u-h5 {
+  padding-top: 5em;
+}
+
+.offset-u-h10 {
+  padding-top: 10em;
+}
+
+.tableCenter {
+  margin: 0 auto;
+}
+
+.ng-valid .ng-dirty{
+  border: 2px solid green;
+  border-radius: 4px;
+}
+
+.ng-invalid .ng-dirty{
+  border: 2px solid red;
+  border-radius: 4px;
 }

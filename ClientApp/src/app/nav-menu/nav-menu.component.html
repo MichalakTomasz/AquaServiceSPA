@@ -1,32 +1,46 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">AquaServiceSPA</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+  <nav>
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav">
+          <ng-container *ngFor="let mainMenuItem of mainMenuItems">
+            <li *ngIf="mainMenuItem.name === 'Kalkulatory'"
+                class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"
+                 href="#"
+                 id="navbarDropdownMenuLink"
+                 role="button"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                {{mainMenuItem.name}}
+              </a>
+              <div class="dropdown-menu"
+                   aria-labelledby="navbarDropdownMenuLink">
+                <a *ngFor="let calcMenuItem of calcMenuItems"
+                   class="dropdown-item"
+                   [routerLink]="[calcMenuItem.link]">
+                  {{calcMenuItem.name}}
+                </a>
+              </div>
+            </li>
+            <li *ngIf="mainMenuItem.name !== 'Kalkulatory'"
+                class="nav-item">
+              <a class="nav-link"
+                 [routerLink]="[mainMenuItem.link]">
+                {{mainMenuItem.name}}
+              </a>
+            </li>
+          </ng-container>
         </ul>
       </div>
     </div>
