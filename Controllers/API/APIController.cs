@@ -8,10 +8,14 @@ namespace AquaServiceSPA.Controllers
     public class APIController : ControllerBase
     {
         private readonly IAquaCalcService aquaCalcService;
+        private readonly AquaMacroDefaultSettings aquaMacroDefaultSettings;
 
-        public APIController(IAquaCalcService aquaCalcService)
+        public APIController(
+            IAquaCalcService aquaCalcService,
+            AquaMacroDefaultSettings aquaMacroDefaultSettings)
         {
             this.aquaCalcService = aquaCalcService;
+            this.aquaMacroDefaultSettings = aquaMacroDefaultSettings;
         }
 
         [HttpPost("co2")]
@@ -33,5 +37,9 @@ namespace AquaServiceSPA.Controllers
             var result = aquaCalcService.MacroCompute(macro);
             return Ok(result);
         }
+
+        [HttpGet("macrodefaultdata")]
+        public IActionResult GetAquaDefaultMacroSettings()
+            => Ok(aquaMacroDefaultSettings);
     }
 }

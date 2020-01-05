@@ -1,5 +1,5 @@
 .panel{
-  background-color: lightblue;
+  background-color: rgb(189, 255, 244);
 }
 .offset-d-h2 {
   padding-bottom: 2em;
@@ -133,12 +133,12 @@
   margin: 0 auto;
 }
 
-.ng-valid .ng-dirty{
+.form-group .ng-valid.ng-dirty{
   border: 2px solid green;
   border-radius: 4px;
 }
 
-.ng-invalid .ng-dirty{
+.form-group .ng-invalid.ng-dirty{
   border: 2px solid red;
   border-radius: 4px;
 }

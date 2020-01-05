@@ -22,28 +22,4 @@
         <span>mg/l</span>
     </p>
     <h5 class="text-center">Przyjmuje się, że stężenie powinno zawierać się w przedziale: 15-30 mg/l</h5>
-    <div *ngIf="formGroup.get('ph').invalid && formGroup.get('ph').dirty">
-        <div *ngIf="formGroup.get('ph').errors.max">
-            Maksymalna dopuszczalna wartość dla pH to 12.
-        </div>
-        <div *ngIf="formGroup.get('ph').errors.min">
-            Minimalna dopuszczalna wartość dla pH to 0.
-        </div><div *ngIf="formGroup.get('ph').errors.required">
-            Pole pH jest wymagane.
-        </div><div *ngIf="formGroup.get('ph').errors.pattern">
-            W polu pH można wpiywać wartości tylko liczbowe.
-        </div>
-    </div>
-    <div *ngIf="formGroup.get('kh').invalid && formGroup.get('kh').dirty">
-        <div *ngIf="formGroup.get('kh').errors.max">
-            Maksymalna dopuszczalna wartość dla kH to 12.
-        </div>
-        <div *ngIf="formGroup.get('kh').errors.min">
-            Minimalna dopuszczalna wartość dla kH to 0.
-        </div><div *ngIf="formGroup.get('kh').errors.required">
-            Pole kH jest wymagane.
-        </div><div *ngIf="formGroup.get('kh').errors.pattern">
-            W polu kH można wpiywać wartości tylko liczbowe.
-        </div>
-    </div>
 </div>

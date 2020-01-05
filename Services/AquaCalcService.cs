@@ -15,7 +15,7 @@ namespace AquaServiceSPA.Services
         public double KH2PO4SolubilityGramsPer100Ml { get; } = 25;
         public double K2SO4SolubilityGramsPer100Ml { get; } = 11;
         public double MgSO4SolubilityGramsPer100Ml { get; } = 105;
-
+        
         public double Co2Concentration(double kh, double ph)
             => Math.Round(3 * kh * Math.Pow(10, 7 - ph), 2);
 
@@ -147,8 +147,10 @@ namespace AquaServiceSPA.Services
                 Percent(KNO3ContentK));
             if (express.MaxConcentrationNinKNO3PerLiter <= 0.5)
             {
-                express.OptimalConcentrationNinKNO3MgPerLiter = express.MaxConcentrationNinKNO3PerLiter.Value;
-                express.OptimalConcentrationKinKNO3MgPerLiter = express.MaxConcentrationKinKNO3MgPerLiter.Value;
+                express.OptimalConcentrationNinKNO3MgPerLiter = 
+                    express.MaxConcentrationNinKNO3PerLiter.Value;
+                express.OptimalConcentrationKinKNO3MgPerLiter = 
+                    express.MaxConcentrationKinKNO3MgPerLiter.Value;
                 express.OptimalKNO3g = express.MaxKNO3g.Value;
             }
             else if (express.MaxConcentrationNinKNO3PerLiter > 0.5 &&
@@ -198,8 +200,10 @@ namespace AquaServiceSPA.Services
                 Percent(KH2PO4ContentK));
             if (express.MaxConcentrationPinKH2PO4MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationPinKH2PO4MgPerLiter = express.MaxConcentrationPinKH2PO4MgPerLiter;
-                express.OptimalConcentrationKinKH2PO4MgPerLiter = express.MaxConcentrationKinKH2PO4MgPerLiter;
+                express.OptimalConcentrationPinKH2PO4MgPerLiter = 
+                    express.MaxConcentrationPinKH2PO4MgPerLiter;
+                express.OptimalConcentrationKinKH2PO4MgPerLiter = 
+                    express.MaxConcentrationKinKH2PO4MgPerLiter;
                 express.OptimalKH2PO4g = express.MaxKH2PO4g;
             }
             else if (express.MaxConcentrationPinKH2PO4MgPerLiter > 0.5 &&
@@ -244,7 +248,8 @@ namespace AquaServiceSPA.Services
                 Percent(K2SO4ContentK));
             if (express.MaxConcentrationKinK2SO4MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationKinK2SO4PerLiter = express.MaxConcentrationKinK2SO4MgPerLiter;
+                express.OptimalConcentrationKinK2SO4PerLiter = 
+                    express.MaxConcentrationKinK2SO4MgPerLiter;
                 express.OptimalK2SO4g = express.MaxK2SO4g.Value;
             }
             else if (express.MaxConcentrationKinK2SO4MgPerLiter > 0.5 &&
@@ -278,7 +283,8 @@ namespace AquaServiceSPA.Services
                 Percent(MgSO47H2OContentMg));
             if (express.MaxConcentrationMginMgSO4PerLiter <= 0.5)
             {
-                express.OptimalConcentrationMginMgSO4PerLiter = express.MaxConcentrationMginMgSO4PerLiter;
+                express.OptimalConcentrationMginMgSO4PerLiter = 
+                    express.MaxConcentrationMginMgSO4PerLiter;
                 express.OptimalMgSO4g = express.MaxMgSO4g;
             }
             else if (express.MaxConcentrationMginMgSO4PerLiter > 0.5 &&

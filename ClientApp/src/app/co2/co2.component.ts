@@ -24,6 +24,7 @@ export class Co2Component implements OnInit {
         Validators.max(14),
         Validators.pattern('^[0-9]+$')]),
       kh: new FormControl(null, [
+        Validators.required,
         Validators.min(0),
         Validators.max(30.8),
         Validators.pattern('^[0-9]+$')

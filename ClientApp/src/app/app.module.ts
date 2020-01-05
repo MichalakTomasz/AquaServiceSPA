@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { Co2Component } from './co2/co2.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MacroComponent } from './macro/macro.component';
+import { JsonConverterService } from './services/json-converter.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { MacroComponent } from './macro/macro.component';
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],
-  providers: [],
+  providers: [JsonConverterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

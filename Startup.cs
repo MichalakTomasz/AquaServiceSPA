@@ -1,3 +1,4 @@
+using AquaServiceSPA.Models;
 using AquaServiceSPA.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,9 @@ namespace AquaServiceSPA
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddScoped<IAquaCalcService, AquaCalcService>(); 
+
+            services.AddScoped<IAquaCalcService, AquaCalcService>();
+            services.AddSingleton(new AquaMacroDefaultSettings());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
