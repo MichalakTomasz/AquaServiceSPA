@@ -37,11 +37,7 @@ import { ExpressComponent } from './components/express/express.component';
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],
-  providers: [
-    {provide: 'BASE_URL', useValue: 'https://localhost:44307/api/'},
-    {provide: 'DIGITS_DOUBLE_PRECISION_PATTERN', 
-    useValue: '^[0-9]{0,2}[,.]{1}[0-9]{1,2}$|^[0-9]{1,2}[,.]{1}[0-9]{0,2}$|^[0-9]{1,2}$'},
-    AquaCalcService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

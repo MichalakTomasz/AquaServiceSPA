@@ -43,7 +43,6 @@ export class MacroComponent implements OnInit {
   getMacroDefaultSettings(){
     this.aquaCalcService.getMacroDafautSettings()
     .subscribe(result => {
-
       this.aquaMacroDefaultSettings = result;
       this.formGroup.get('aquaLiters').setValue(this.aquaMacroDefaultSettings.aquaLiters);
       this.formGroup.get('containerCapacity').setValue(this.aquaMacroDefaultSettings.containerCapacity);
