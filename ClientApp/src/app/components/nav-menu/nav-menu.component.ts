@@ -1,5 +1,5 @@
 import { Component, Renderer, Renderer2 } from '@angular/core';
-import { MenuItem } from 'src/interfaces/menu-item';
+import { IMenuItem } from 'src/app/interfaces/menu-item';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,11 +7,11 @@ import { MenuItem } from 'src/interfaces/menu-item';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  mainMenuItems: Array<MenuItem> = [
+  mainMenuItems: Array<IMenuItem> = [
     { name:'Główna', link:'/'}, 
     { name:'Kalkulatory', link:''}, 
     { name:'Kontakt', link: 'contact'}];
-  calcMenuItems: Array<MenuItem> = [
+  calcMenuItems: Array<IMenuItem> = [
     { name: 'Ekspresowy', link: 'express'}, 
     { name: 'Makro', link: 'macro'},
     { name: 'CO2', link: 'co2'}, 

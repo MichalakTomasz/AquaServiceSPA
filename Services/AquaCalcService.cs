@@ -63,32 +63,25 @@ namespace AquaServiceSPA.Services
             else return -1;
         }
 
-        public MacroResult MacroCompute(
-            double aquaLiters,
-            double containerCapacity,
-            double timesAWeek,
-            double nitrogen,
-            double phosphorus,
-            double potassium,
-            double magnesium)
+        public MacroResult MacroCompute(Macro macro)
         {
-            var weeklyKNO3Dose = GramsSalt(nitrogen,
-                   aquaLiters,
+            var weeklyKNO3Dose = GramsSalt(macro.Nitrogen,
+                   macro.AquaLiters,
                    Percent(KNO3ContentN));
-            var weeklyKH2PO4Dose = GramsSalt(phosphorus,
-                aquaLiters,
+            var weeklyKH2PO4Dose = GramsSalt(macro.Phosphorus,
+                macro.AquaLiters,
                 Percent(KH2PO4ContentP));
             var NO3Kppm = Ppm(Percent(KNO3ContentK),
-                aquaLiters);
+                macro.AquaLiters);
             var KH2SPO4Kppm = Ppm(Percent(KH2PO4ContentK),
-                aquaLiters);
-            var K2SO4Other = potassium - (NO3Kppm + KH2SPO4Kppm) > 0 ?
-                potassium - (NO3Kppm + KH2SPO4Kppm) : 0;
+                macro.AquaLiters);
+            var K2SO4Other = macro.Potassium - (NO3Kppm + KH2SPO4Kppm) > 0 ?
+                macro.Potassium - (NO3Kppm + KH2SPO4Kppm) : 0;
             var weeklyK2SO4Dose = GramsSalt(K2SO4Other,
-                aquaLiters,
+                macro.AquaLiters,
                 Percent(K2SO4ContentK));
-            var weeklyMgSO4Dose = GramsSalt(magnesium,
-                aquaLiters,
+            var weeklyMgSO4Dose = GramsSalt(macro.Magnesium,
+                macro.AquaLiters,
                 Percent(MgSO47H2OContentMg));
             double fertililizerWeeklyDose = 0;
             fertililizerWeeklyDose += Solubility(weeklyKNO3Dose,
@@ -100,215 +93,205 @@ namespace AquaServiceSPA.Services
             fertililizerWeeklyDose += Solubility(weeklyMgSO4Dose,
                 MgSO4SolubilityGramsPer100Ml);
             fertililizerWeeklyDose = Math.Round(fertililizerWeeklyDose, MidpointRounding.ToEven);
-            while (fertililizerWeeklyDose % timesAWeek != 0)
+            while (fertililizerWeeklyDose % macro.TimesAWeek != 0)
                 fertililizerWeeklyDose++;
-            var saltMultiplier = containerCapacity / fertililizerWeeklyDose;
+            var saltMultiplier = macro.ContainerCapacity / fertililizerWeeklyDose;
             var macroResult = new MacroResult
             {
-                singleDose = fertililizerWeeklyDose / timesAWeek,
-                kno3 = Math.Round((weeklyKNO3Dose * saltMultiplier), 2),
-                kh2po4 = Math.Round((weeklyKH2PO4Dose * saltMultiplier), 2),
-                k2so4 = Math.Round((weeklyK2SO4Dose * saltMultiplier), 2),
-                mgso4 = Math.Round((weeklyMgSO4Dose * saltMultiplier), 2)
+                SingleDose = fertililizerWeeklyDose / macro.TimesAWeek,
+                Kno3 = Math.Round((weeklyKNO3Dose * saltMultiplier), 2),
+                Kh2po4 = Math.Round((weeklyKH2PO4Dose * saltMultiplier), 2),
+                K2so4 = Math.Round((weeklyK2SO4Dose * saltMultiplier), 2),
+                Mgso4 = Math.Round((weeklyMgSO4Dose * saltMultiplier), 2)
             };
             return macroResult;
         }
 
-        public MacroResult MacroCompute(Macro macro)
-            => MacroCompute(
-                macro.AquaLiters,
-                macro.ContainerCapacity,
-                macro.TimesAWeek,
-                macro.Nitrogen,
-                macro.Phosphorus,
-                macro.Potassium,
-                macro.Magnesium);
-
-        public Express ExpressCalc(double aquaLiters, double containerCapacity)
+        public ExpressResult ExpressCalc(Express express)
         {
-            var express = new Express
+            var result = new ExpressResult
             {
-                AquaLiters = aquaLiters,
-                ContainerCapacity = containerCapacity
+                AquaLiters = express.AquaLiters,
+                ContainerCapacity = express.ContainerCapacity
             };
             //nitrogen
-            express.MaxKNO3g = SolubilityInWater(
-                express.ContainerCapacity.Value,
+            result.MaxKNO3g = SolubilityInWater(
+                result.ContainerCapacity.Value,
                 KNO3SolubilityGramsPer100Ml);
-            express.MaxConcentrationNinKNO3PerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxKNO3g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxConcentrationNinKNO3MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxKNO3g.Value,
+                result.ContainerCapacity.Value,
                 Percent(KNO3ContentN));
-            express.MaxConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxKNO3g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxKNO3g.Value,
+                result.ContainerCapacity.Value,
                 Percent(KNO3ContentK));
-            if (express.MaxConcentrationNinKNO3PerLiter <= 0.5)
+            if (result.MaxConcentrationNinKNO3MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationNinKNO3MgPerLiter = 
-                    express.MaxConcentrationNinKNO3PerLiter.Value;
-                express.OptimalConcentrationKinKNO3MgPerLiter = 
-                    express.MaxConcentrationKinKNO3MgPerLiter.Value;
-                express.OptimalKNO3g = express.MaxKNO3g.Value;
+                result.OptimalConcentrationNinKNO3MgPerLiter = 
+                    result.MaxConcentrationNinKNO3MgPerLiter.Value;
+                result.OptimalConcentrationKinKNO3MgPerLiter = 
+                    result.MaxConcentrationKinKNO3MgPerLiter.Value;
+                result.OptimalKNO3g = result.MaxKNO3g.Value;
             }
-            else if (express.MaxConcentrationNinKNO3PerLiter > 0.5 &&
-                express.MaxConcentrationNinKNO3PerLiter < 1)
+            else if (result.MaxConcentrationNinKNO3MgPerLiter > 0.5 &&
+                result.MaxConcentrationNinKNO3MgPerLiter < 1)
             {
-                express.OptimalKNO3g = (express.MaxKNO3g.Value * 0.5) /
-                    express.MaxConcentrationNinKNO3PerLiter.Value;
-                express.OptimalConcentrationNinKNO3MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKNO3g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalKNO3g = (result.MaxKNO3g.Value * 0.5) /
+                    result.MaxConcentrationNinKNO3MgPerLiter.Value;
+                result.OptimalConcentrationNinKNO3MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKNO3g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KNO3ContentN));
-                express.OptimalConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKNO3g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKNO3g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KNO3ContentK));
             }
             else
             {
-                express.OptimalKNO3g = (express.MaxKNO3g.Value * 1) /
-                    express.MaxConcentrationNinKNO3PerLiter.Value;
-                express.OptimalConcentrationNinKNO3MgPerLiter = Math.Round(ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKNO3g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalKNO3g = (result.MaxKNO3g.Value * 1) /
+                    result.MaxConcentrationNinKNO3MgPerLiter.Value;
+                result.OptimalConcentrationNinKNO3MgPerLiter = Math.Round(ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKNO3g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KNO3ContentN)), 2);
-                express.OptimalConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKNO3g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalConcentrationKinKNO3MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKNO3g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KNO3ContentK));
             }
             //phosphorus
-            express.MaxKH2PO4g = SolubilityInWater(
-                express.ContainerCapacity.Value,
+            result.MaxKH2PO4g = SolubilityInWater(
+                result.ContainerCapacity.Value,
                 KH2PO4SolubilityGramsPer100Ml);
-            express.MaxConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxKH2PO4g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxKH2PO4g.Value,
+                result.ContainerCapacity.Value,
                 Percent(KH2PO4ContentP));
-            express.MaxConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxKH2PO4g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxKH2PO4g.Value,
+                result.ContainerCapacity.Value,
                 Percent(KH2PO4ContentK));
-            if (express.MaxConcentrationPinKH2PO4MgPerLiter <= 0.5)
+            if (result.MaxConcentrationPinKH2PO4MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationPinKH2PO4MgPerLiter = 
-                    express.MaxConcentrationPinKH2PO4MgPerLiter;
-                express.OptimalConcentrationKinKH2PO4MgPerLiter = 
-                    express.MaxConcentrationKinKH2PO4MgPerLiter;
-                express.OptimalKH2PO4g = express.MaxKH2PO4g;
+                result.OptimalConcentrationPinKH2PO4MgPerLiter = 
+                    result.MaxConcentrationPinKH2PO4MgPerLiter;
+                result.OptimalConcentrationKinKH2PO4MgPerLiter = 
+                    result.MaxConcentrationKinKH2PO4MgPerLiter;
+                result.OptimalKH2PO4g = result.MaxKH2PO4g;
             }
-            else if (express.MaxConcentrationPinKH2PO4MgPerLiter > 0.5 &&
-                express.MaxConcentrationPinKH2PO4MgPerLiter < 1)
+            else if (result.MaxConcentrationPinKH2PO4MgPerLiter > 0.5 &&
+                result.MaxConcentrationPinKH2PO4MgPerLiter < 1)
             {
-                express.OptimalKH2PO4g = (express.MaxKH2PO4g.Value * 0.1) /
-                    express.MaxConcentrationPinKH2PO4MgPerLiter.Value;
-                express.OptimalConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKH2PO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalKH2PO4g = (result.MaxKH2PO4g.Value * 0.1) /
+                    result.MaxConcentrationPinKH2PO4MgPerLiter.Value;
+                result.OptimalConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKH2PO4g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KH2PO4ContentP));
-                express.OptimalConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKH2PO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKH2PO4g.Value,
+                    result.ContainerCapacity.Value,
                 Percent(KH2PO4ContentK));
             }
             else
             {
-                express.OptimalKH2PO4g = (express.MaxKH2PO4g.Value * .1) /
-                    express.MaxConcentrationPinKH2PO4MgPerLiter.Value;
-                express.OptimalConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKH2PO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalKH2PO4g = (result.MaxKH2PO4g.Value * .1) /
+                    result.MaxConcentrationPinKH2PO4MgPerLiter.Value;
+                result.OptimalConcentrationPinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKH2PO4g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KH2PO4ContentP));
-                express.OptimalConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalKH2PO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalConcentrationKinKH2PO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalKH2PO4g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(KH2PO4ContentK));
             }
             //potasium
-            express.MaxK2SO4g = SolubilityInWater(
-                express.ContainerCapacity.Value,
+            result.MaxK2SO4g = SolubilityInWater(
+                result.ContainerCapacity.Value,
                 K2SO4SolubilityGramsPer100Ml);
-            express.MaxConcentrationKinK2SO4MgPerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxK2SO4g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxConcentrationKinK2SO4MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxK2SO4g.Value,
+                result.ContainerCapacity.Value,
                 Percent(K2SO4ContentK));
-            if (express.MaxConcentrationKinK2SO4MgPerLiter <= 0.5)
+            if (result.MaxConcentrationKinK2SO4MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationKinK2SO4PerLiter = 
-                    express.MaxConcentrationKinK2SO4MgPerLiter;
-                express.OptimalK2SO4g = express.MaxK2SO4g.Value;
+                result.OptimalConcentrationKinK2SO4MgPerLiter = 
+                    result.MaxConcentrationKinK2SO4MgPerLiter;
+                result.OptimalK2SO4g = result.MaxK2SO4g.Value;
             }
-            else if (express.MaxConcentrationKinK2SO4MgPerLiter > 0.5 &&
-                express.MaxConcentrationKinK2SO4MgPerLiter < 1)
+            else if (result.MaxConcentrationKinK2SO4MgPerLiter > 0.5 &&
+                result.MaxConcentrationKinK2SO4MgPerLiter < 1)
             {
-                express.OptimalK2SO4g = (express.MaxK2SO4g.Value * 0.5) /
-                    express.MaxConcentrationKinK2SO4MgPerLiter.Value;
-                express.OptimalConcentrationKinK2SO4PerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                express.OptimalK2SO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalK2SO4g = (result.MaxK2SO4g.Value * 0.5) /
+                    result.MaxConcentrationKinK2SO4MgPerLiter.Value;
+                result.OptimalConcentrationKinK2SO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                result.OptimalK2SO4g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(K2SO4ContentK));
             }
             else
             {
-                express.OptimalK2SO4g = (express.MaxK2SO4g.Value * 1) /
-                    express.MaxConcentrationKinK2SO4MgPerLiter.Value;
-                express.OptimalConcentrationKinK2SO4PerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalK2SO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalK2SO4g = (result.MaxK2SO4g.Value * 1) /
+                    result.MaxConcentrationKinK2SO4MgPerLiter.Value;
+                result.OptimalConcentrationKinK2SO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalK2SO4g.Value,
+                    result.ContainerCapacity.Value,
                     Percent(K2SO4ContentK));
             }
             //magnesium
-            express.MaxMgSO4g = SolubilityInWater(
-                express.ContainerCapacity.Value, MgSO4SolubilityGramsPer100Ml);
-            express.MaxConcentrationMginMgSO4PerLiter = ConcentrationIn1Ml(
-                express.AquaLiters.Value,
-                express.MaxMgSO4g.Value,
-                express.ContainerCapacity.Value,
+            result.MaxMgSO4g = SolubilityInWater(
+                result.ContainerCapacity.Value, MgSO4SolubilityGramsPer100Ml);
+            result.MaxConcentrationMginMgSO4MgPerLiter = ConcentrationIn1Ml(
+                result.AquaLiters.Value,
+                result.MaxMgSO4g.Value,
+                result.ContainerCapacity.Value,
                 Percent(MgSO47H2OContentMg));
-            if (express.MaxConcentrationMginMgSO4PerLiter <= 0.5)
+            if (result.MaxConcentrationMginMgSO4MgPerLiter <= 0.5)
             {
-                express.OptimalConcentrationMginMgSO4PerLiter = 
-                    express.MaxConcentrationMginMgSO4PerLiter;
-                express.OptimalMgSO4g = express.MaxMgSO4g;
+                result.OptimalConcentrationMginMgSO4MgPerLiter = 
+                    result.MaxConcentrationMginMgSO4MgPerLiter;
+                result.OptimalMgSO4g = result.MaxMgSO4g;
             }
-            else if (express.MaxConcentrationMginMgSO4PerLiter > 0.5 &&
-                express.MaxConcentrationMginMgSO4PerLiter < 1)
+            else if (result.MaxConcentrationMginMgSO4MgPerLiter > 0.5 &&
+                result.MaxConcentrationMginMgSO4MgPerLiter < 1)
             {
-                express.OptimalMgSO4g = (express.MaxMgSO4g.Value * 0.5) /
-                    express.MaxConcentrationMginMgSO4PerLiter.Value;
-                express.OptimalConcentrationMginMgSO4PerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalMgSO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalMgSO4g = (result.MaxMgSO4g.Value * 0.5) /
+                    result.MaxConcentrationMginMgSO4MgPerLiter.Value;
+                result.OptimalConcentrationMginMgSO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalMgSO4g.Value,
+                    result.ContainerCapacity.Value,
                 Percent(MgSO47H2OContentMg));
             }
             else
             {
-                express.OptimalMgSO4g = (express.MaxMgSO4g.Value * 1) /
-                    express.MaxConcentrationMginMgSO4PerLiter.Value;
-                express.OptimalConcentrationMginMgSO4PerLiter = ConcentrationIn1Ml(
-                    express.AquaLiters.Value,
-                    express.OptimalMgSO4g.Value,
-                    express.ContainerCapacity.Value,
+                result.OptimalMgSO4g = (result.MaxMgSO4g.Value * 1) /
+                    result.MaxConcentrationMginMgSO4MgPerLiter.Value;
+                result.OptimalConcentrationMginMgSO4MgPerLiter = ConcentrationIn1Ml(
+                    result.AquaLiters.Value,
+                    result.OptimalMgSO4g.Value,
+                    result.ContainerCapacity.Value,
                 Percent(MgSO47H2OContentMg));
             }
-            return express;
+            return result;
         }
     }
 }

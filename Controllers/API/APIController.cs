@@ -41,5 +41,15 @@ namespace AquaServiceSPA.Controllers
         [HttpGet("macrodefaultdata")]
         public IActionResult GetAquaDefaultMacroSettings()
             => Ok(aquaMacroDefaultSettings);
+
+        [HttpPost("express")]
+        public IActionResult Express([FromBody] Express express)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Model is invalid");
+
+            var result = aquaCalcService.ExpressCalc(express);
+            return Ok(result);
+        }
     }
 }

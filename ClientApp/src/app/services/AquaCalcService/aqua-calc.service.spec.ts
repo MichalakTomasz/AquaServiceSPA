@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { JsonConverterService } from './json-converter.service';
+import { AquaCalcService } from './aqua-calc.service';
 
-describe('JsonConverterService', () => {
+describe('AquaCalcService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: JsonConverterService = TestBed.get(JsonConverterService);
+    const service: AquaCalcService = TestBed.get(AquaCalcService);
     expect(service).toBeTruthy();
   });
 });

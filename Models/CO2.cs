@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AquaServiceSPA.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace AquaServiceSPA.Models
 {
@@ -6,11 +7,11 @@ namespace AquaServiceSPA.Models
     {
         [Required]
         [Range(0, 12)]
-        [RegularExpression("^[0-9]+$")]
+        [RegularExpression(ConstValues.DIGITS_DOUBLE_PRECISION_PATTERN)]
         public double Ph { get; set; }
         [Required]
         [Range(0, 12)]
-        [RegularExpression("^[0-9]+$")]
+        [RegularExpression(ConstValues.DIGITS_DOUBLE_PRECISION_PATTERN)]
         public double Kh { get; set; }
     }
 }

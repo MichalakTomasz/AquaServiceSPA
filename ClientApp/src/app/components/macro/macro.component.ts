@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
-import { IMacro } from 'src/interfaces/imacro';
-import { IMacroResult } from 'src/interfaces/imacro-result';
-import { IAquaMacroDefaultSettings } from 'src/interfaces/i-aqua-macro-default-settings';
-import { Subject } from 'rxjs';
+import { IMacro } from 'src/app/interfaces/i-macro';
+import { IMacroResult } from 'src/app/interfaces/i-macro-result';
+import { IAquaMacroDefaultSettings } from 'src/app/interfaces/i-aqua-macro-default-settings';
+import { AquaCalcService } from '../../services/AquaCalcService/aqua-calc.service';
 
 @Component({
   selector: 'app-macro',
@@ -13,13 +12,13 @@ import { Subject } from 'rxjs';
 })
 export class MacroComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private aquaCalcService: AquaCalcService,
+    @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern) {}
 
-  private url = 'https://localhost:44307/api/';
   private formGroup: FormGroup;
   private macroResult = <IMacroResult>{};
-  private aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{};
-  
+  private aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{};  
  
   ngOnInit(){
     this.getMacroDefaultSettings();
@@ -29,23 +28,22 @@ export class MacroComponent implements OnInit {
       containerCapacity: new FormControl('',
         [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
       timesAWeek: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(1), Validators.max(7), Validators.pattern('^[0-9]+$')]),
       nitrogen: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern('^[0-9]+$')]),
       phosphorus: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.max(10), Validators.pattern(this.digitsDoublePrecisionPattern)]),
       potassium: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern('^[0-9]+$')]),
       magnesium: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')])
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^[0-9]+$')])
     });
   }
 
   getMacroDefaultSettings(){
-    
-    this.http.get<IAquaMacroDefaultSettings>(this.url + 'macrodefaultdata')
+    this.aquaCalcService.getMacroDafautSettings()
     .subscribe(result => {
-      console.log(result);
+
       this.aquaMacroDefaultSettings = result;
       this.formGroup.get('aquaLiters').setValue(this.aquaMacroDefaultSettings.aquaLiters);
       this.formGroup.get('containerCapacity').setValue(this.aquaMacroDefaultSettings.containerCapacity);
@@ -64,12 +62,12 @@ export class MacroComponent implements OnInit {
       containerCapacity: +this.formGroup.value.containerCapacity,
       timesAWeek: +this.formGroup.value.timesAWeek,
       nitrogen: +this.formGroup.value.nitrogen,
-      phosphorus: +this.formGroup.value.phosphorus,
+      phosphorus: +(this.formGroup.value.phosphorus as string).replace(',', '.'),
       potassium: +this.formGroup.value.potassium,
       magnesium: +this.formGroup.value.magnesium
     };
 
-    this.http.post<IMacroResult>(this.url + 'macro', macro)
+    this.aquaCalcService.computeMacro(macro)
     .subscribe(result => {
       this.macroResult.kno3 = result.kno3,
       this.macroResult.k2so4 = result.k2so4,

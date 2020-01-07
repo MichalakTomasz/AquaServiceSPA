@@ -31,15 +31,7 @@ namespace AquaServiceSPA.Services
         double SeingleDose(double weeklyDodeInMl, double soulubilityPer100Ml);
         double Solubility(double gramsSalt, double solubilityPer100Grams);
         double SolubilityInWater(double litersWater, double solubilityPer100Grams);
-        MacroResult MacroCompute(
-            double liters,
-            double containerCapacity,
-            double timesAWeek,
-            double nitrogen,
-            double phosphorus,
-            double potassium,
-            double magnesium);
         MacroResult MacroCompute(Macro Macro);
-        Express ExpressCalc(double aquaLiters, double containerCapacity);
+        ExpressResult ExpressCalc(Express express);
     }
 }
