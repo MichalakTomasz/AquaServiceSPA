@@ -51,5 +51,44 @@ namespace AquaServiceSPA.Controllers
             var result = aquaCalcService.ExpressCalc(express);
             return Ok(result);
         }
+
+        [HttpPost("kno3")]
+        public IActionResult kno3([FromBody] Kno3 kno3)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var kno3Solubility = aquaCalcService
+                .Solubility(kno3.Kno3g, SaltsStaticData.KNO3SolubilityGramsPer100Ml);
+            var minSaltSolubilityInAmountWater = aquaCalcService
+                .SolubilityInWater(kno3.ContainerCapacity, SaltsStaticData.KNO3SolubilityGramsPer100Ml);
+            
+            if (kno3Solubility > kno3.ContainerCapacity)
+            {
+                var viewModel = new Kno3Result
+                {
+                    Solubility = kno3Solubility,
+                    SolubilityInAmountWater = minSaltSolubilityInAmountWater
+                };
+                return Ok(viewModel);
+            }
+
+            var nitrogenContent = aquaCalcService.ConcentrationIn1Ml(
+                kno3.AquaLiters,
+                kno3.Kno3g,
+                kno3.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.KNO3ContentN));
+            var potassiumContent = aquaCalcService.ConcentrationIn1Ml(
+                kno3.AquaLiters,
+                kno3.Kno3g,
+                kno3.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.KNO3ContentK));
+            var result = new Kno3Result
+            {
+                NitrogenContent = nitrogenContent,
+                PotassiumContent = potassiumContent
+            };
+            return Ok(result);
+        }
     }
 }

@@ -15,7 +15,8 @@ export class Co2Component implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
-    @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern) { }
+    @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern,
+    @Inject('DIGITS_PATTERN') private digitsPattern) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -28,7 +29,7 @@ export class Co2Component implements OnInit {
         Validators.required,
         Validators.min(0),
         Validators.max(30.8),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern(this.digitsPattern)
       ])
     });
   }

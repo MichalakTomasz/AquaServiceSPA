@@ -10,9 +10,9 @@ import { HomeComponent } from './components/home/home.component';
 import { Co2Component } from './components/co2/co2.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MacroComponent } from './components/macro/macro.component';
-import { AquaCalcService } from './services/AquaCalcService/aqua-calc.service';
 import { ExpressComponent } from './components/express/express.component';
-
+import { Kno3Component } from './components/kno3/kno3.component';
+import { RoundPipe } from './pipes/round.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +21,9 @@ import { ExpressComponent } from './components/express/express.component';
     Co2Component,
     PageNotFoundComponent,
     MacroComponent,
-    ExpressComponent
+    ExpressComponent,
+    Kno3Component,
+    RoundPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,6 +36,7 @@ import { ExpressComponent } from './components/express/express.component';
       { path: 'co2', component: Co2Component },
       { path: 'macro', component: MacroComponent },
       { path: 'express', component: ExpressComponent },
+      { path: 'kno3', component: Kno3Component },
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],

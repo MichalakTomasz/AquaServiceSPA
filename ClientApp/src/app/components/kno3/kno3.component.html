@@ -1,0 +1,31 @@
+<div class="panel">
+    <h2 class="offset-1 offset-u-h2 offset-d-h2">Kalkulator KNO3</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="offset-1">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Ile litrów wody netto w akwarium:</label>
+                    <input formControlName="aquaLiters" class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1 first-input" />
+                </div>
+                <div class="form-group col">
+                    <label>Ile gram KNO3:</label>
+                    <input formControlName="kno3g" class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" />
+                </div>
+            </div>
+            <div class="form-row align-items-end">
+                <div class="form-group col" style="margin-bottom:0px;">
+                    <label>Ile ml wody do sporządzenia nawozu:</label>
+                    <input formControlName="containerCapacity" class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" />
+                </div>
+                <div class="col offset-1">
+                    <button class="btn btn-info" type="submit" [disabled]="!formGroup.valid">Oblicz</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="kno3Result?.solubility !== undefined && kno3Result?.solubility !== null" class="text-center offset-d-h5 offset-u-h2 offset-1 col-10">
+            Za mała ilość wody do rozpuszczenia soli. Aby rozpuścić <strong>{{formGroup.get('kno3g').Value}}</strong> g soli, potrzebne jest <strong>{{kno3Result.solubility}}</strong> ml wody demineralizowanej. W <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody można rozpuścić maksymalnie <strong>{{kno3Result.soubilityInAmountWater}}</strong> g soli.
+    </div>
+    <div *ngIf="kno3Result?.nitrogenContent !== undefined && kno3Result?.nitrogenContent !== null" class="text-center offset-d-h7 offset-u-h2 offset-1 col-10">Po wymieszaniu <strong>{{formGroup.get('kno3g').value}}</strong> g soli w <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody, jeden ml roztworu będzie zawierał <strong>{{kno3Result?.nitrogenContent | round: 2}}</strong> mg/l azotu i <strong>{{kno3Result?.potassiumContent | round: 2}}</strong> mg/l potasu.</div>
+    <div *ngIf="kno3Result?.nitrogenContent === undefined" class="offset-d-h10"></div>
+</div>

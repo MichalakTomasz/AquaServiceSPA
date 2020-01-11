@@ -8,6 +8,8 @@ import { IMacroResult } from '../../interfaces/i-macro-result';
 import { IAquaMacroDefaultSettings } from '../../interfaces/i-aqua-macro-default-settings';
 import { IExpress } from '../../interfaces/i-express';
 import { IExpressResult } from 'src/app/interfaces/i-express-result';
+import { IKno3 } from 'src/app/interfaces/i-kno3';
+import { IKno3Result } from 'src/app/interfaces/i-kno3-result';
 
 @Injectable()
 export class AquaCalcService {
@@ -30,5 +32,9 @@ export class AquaCalcService {
 
   computeExpress(express: IExpress): Observable<IExpressResult>{
     return this.http.post<IExpressResult>(this.url + 'express', express)
+  }
+
+  computeKno3(kno3: IKno3): Observable<IKno3Result>{
+    return this.http.post<IKno3Result>(this.url + 'kno3', kno3);
   }
 }

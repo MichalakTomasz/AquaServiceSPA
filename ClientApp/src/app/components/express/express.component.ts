@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IExpressResult } from 'src/app/interfaces/i-express-result';
 import { IExpress } from 'src/app/interfaces/i-express';
@@ -14,12 +14,21 @@ export class ExpressComponent implements OnInit {
   private formGroup: FormGroup;
   private expressResult = <IExpressResult>{}; 
 
-  constructor(private aquaCalcService: AquaCalcService) { }
+  constructor(
+    private aquaCalcService: AquaCalcService,
+    @Inject('DIGITS_PATTERN')private digitsPattern) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      aquaLiters: new FormControl('', [Validators.required, Validators.min(0)]),
-      containerCapacity: new FormControl('', [Validators.required, Validators.min(0)])
+      aquaLiters: new FormControl('', [
+        Validators.required, 
+        Validators.min(0),
+        Validators.pattern(this.digitsPattern)]),
+      containerCapacity: new FormControl('', 
+      [
+        Validators.required, 
+        Validators.min(0),
+        Validators.pattern(this.digitsPattern)])
     });
   }
 

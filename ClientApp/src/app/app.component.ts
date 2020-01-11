@@ -8,7 +8,8 @@ import { AquaCalcService } from './services/AquaCalcService/aqua-calc.service';
     AquaCalcService,
     { provide: 'BASE_URL', useValue: 'https://localhost:44307/api/' },
     { provide: 'DIGITS_DOUBLE_PRECISION_PATTERN', 
-      useValue: '^[0-9]{0,2}[,.]{1}[0-9]{1,2}$|^[0-9]{1,2}[,.]{1}[0-9]{0,2}$|^[0-9]{1,2}$' }]
+      useValue: '^[0-9]{0,2}[,.]{1}[0-9]{1,2}$|^[0-9]{1,2}[,.]{1}[0-9]{0,2}$|^[0-9]{1,2}$' },
+    { provide: 'DIGITS_PATTERN', useValue: '^[0-9]+$'}]
 })
 export class AppComponent {
   title = 'app';

@@ -14,7 +14,8 @@ export class MacroComponent implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
-    @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern) {}
+    @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern,
+    @Inject('DIGITS_PATTERN') private digitsPattern) {}
 
   private formGroup: FormGroup;
   private macroResult = <IMacroResult>{};
@@ -24,19 +25,19 @@ export class MacroComponent implements OnInit {
     this.getMacroDefaultSettings();
     this.formGroup = new FormGroup({
       aquaLiters: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.pattern(this.digitsPattern)]),
       containerCapacity: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.pattern(this.digitsPattern)]),
       timesAWeek: new FormControl('',
-        [Validators.required, Validators.min(1), Validators.max(7), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(1), Validators.max(7), Validators.pattern(this.digitsPattern)]),
       nitrogen: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern(this.digitsPattern)]),
       phosphorus: new FormControl('',
         [Validators.required, Validators.min(0), Validators.max(10), Validators.pattern(this.digitsDoublePrecisionPattern)]),
       potassium: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern('^[0-9]+$')]),
+        [Validators.required, Validators.min(0), Validators.max(80), Validators.pattern(this.digitsPattern)]),
       magnesium: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^[0-9]+$')])
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern(this.digitsPattern)])
     });
   }
 
@@ -61,7 +62,7 @@ export class MacroComponent implements OnInit {
       containerCapacity: +this.formGroup.value.containerCapacity,
       timesAWeek: +this.formGroup.value.timesAWeek,
       nitrogen: +this.formGroup.value.nitrogen,
-      phosphorus: +(this.formGroup.value.phosphorus as string).replace(',', '.'),
+      phosphorus: +this.formGroup.value.phosphorus.toString().replace(',', '.'),
       potassium: +this.formGroup.value.potassium,
       magnesium: +this.formGroup.value.magnesium
     };

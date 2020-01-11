@@ -1,5 +1,5 @@
 import { Component, Renderer, Renderer2 } from '@angular/core';
-import { IMenuItem } from 'src/app/interfaces/menu-item';
+import { IMenuItem } from 'src/app/interfaces/i-menu-item';
 
 @Component({
   selector: 'app-nav-menu',
