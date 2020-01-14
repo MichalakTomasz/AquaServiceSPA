@@ -6,8 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RoundPipe implements PipeTransform {
 
   transform(value: number, precision: number): string {
-    let result = value.toFixed(precision);
-    return result;
+    return value.toFixed(precision);
   }
-
 }

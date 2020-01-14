@@ -16,19 +16,19 @@ export class ExpressComponent implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
-    @Inject('DIGITS_PATTERN')private digitsPattern) { }
+    @Inject('LONG_DIGITS_PATTERN')private longDigitsPattern) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
       aquaLiters: new FormControl('', [
         Validators.required, 
         Validators.min(0),
-        Validators.pattern(this.digitsPattern)]),
+        Validators.pattern(this.longDigitsPattern)]),
       containerCapacity: new FormControl('', 
       [
         Validators.required, 
         Validators.min(0),
-        Validators.pattern(this.digitsPattern)])
+        Validators.pattern(this.longDigitsPattern)])
     });
   }
 

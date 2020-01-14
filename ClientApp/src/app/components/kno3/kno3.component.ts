@@ -15,7 +15,7 @@ export class Kno3Component implements OnInit {
   private kno3Result = <IKno3Result>{};
 
   constructor(
-    @Inject('DIGITS_PATTERN') private digitsPattern: string,
+    @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,
     @Inject('BASE_URL') private url: string,
     private aquaCalcService: AquaCalcService) { }
 
@@ -24,15 +24,15 @@ export class Kno3Component implements OnInit {
       aquaLiters: new FormControl('', [
         Validators.required, 
         Validators.min(0),
-        Validators.pattern(this.digitsPattern)]),
+        Validators.pattern(this.longDigitsPattern)]),
       containerCapacity: new FormControl('', [
         Validators.required,
         Validators.min(0), 
-        Validators.pattern(this.digitsPattern)]),
+        Validators.pattern(this.longDigitsPattern)]),
       kno3g: new FormControl('', [
         Validators.required, 
         Validators.min(0),
-        Validators.pattern(this.digitsPattern)]),
+        Validators.pattern(this.longDigitsPattern)]),
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IMacro } from 'src/app/interfaces/i-macro';
 import { IMacroResult } from 'src/app/interfaces/i-macro-result';
 import { IAquaMacroDefaultSettings } from 'src/app/interfaces/i-aqua-macro-default-settings';
@@ -15,6 +15,7 @@ export class MacroComponent implements OnInit {
   constructor(
     private aquaCalcService: AquaCalcService,
     @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern,
+    @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern,
     @Inject('DIGITS_PATTERN') private digitsPattern) {}
 
   private formGroup: FormGroup;
@@ -25,9 +26,9 @@ export class MacroComponent implements OnInit {
     this.getMacroDefaultSettings();
     this.formGroup = new FormGroup({
       aquaLiters: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern(this.digitsPattern)]),
+        [Validators.required, Validators.min(0), Validators.pattern(this.longDigitsPattern)]),
       containerCapacity: new FormControl('',
-        [Validators.required, Validators.min(0), Validators.pattern(this.digitsPattern)]),
+        [Validators.required, Validators.min(0), Validators.pattern(this.longDigitsPattern)]),
       timesAWeek: new FormControl('',
         [Validators.required, Validators.min(1), Validators.max(7), Validators.pattern(this.digitsPattern)]),
       nitrogen: new FormControl('',
@@ -77,4 +78,8 @@ export class MacroComponent implements OnInit {
     },
     error => console.log(error));
   }
+
+  
+
+  
 }

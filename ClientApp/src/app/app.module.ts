@@ -13,6 +13,7 @@ import { MacroComponent } from './components/macro/macro.component';
 import { ExpressComponent } from './components/express/express.component';
 import { Kno3Component } from './components/kno3/kno3.component';
 import { RoundPipe } from './pipes/round.pipe';
+import { TooltipDirective } from './directives/tooltip/tooltip.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { RoundPipe } from './pipes/round.pipe';
     MacroComponent,
     ExpressComponent,
     Kno3Component,
-    RoundPipe
+    RoundPipe,
+    TooltipDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
