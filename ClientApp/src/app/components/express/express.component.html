@@ -5,12 +5,14 @@
             <div class="form-group col offset-1 col-3" style="margin-bottom: 0;">
                 <label>Ilość wody netto w akwarium:</label>
                 <input class="form-control col-6 col-sm-7 col-md-4 col-lg-3 offset-1 first-input"
-                    formControlName="aquaLiters" />
+                    formControlName="aquaLiters" 
+                    tooltip [text]="commonStringsService.aquaLiters"/>
             </div>
             <div class="form-group col col-3 " style="margin-bottom: 0;">
                 <label>Ilość wody w jakiej będzie sporządzany nawóz:</label>
                 <input class="form-control col-6 col-sm-7 col-md-4 col-lg-3 offset-1" 
-                    formControlName="containerCapacity" />
+                    formControlName="containerCapacity"
+                    tooltip [text]="commonStringsService.containerCapacity"/>
             </div>
             <div class="col col-2"><button type="submit" class="btn btn-info" [disabled]="!formGroup.valid">Oblicz</button></div>
             <a class="btn btn-secondary info-express">Instrukcja</a>

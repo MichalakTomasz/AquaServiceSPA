@@ -4,6 +4,7 @@ import { IMacro } from 'src/app/interfaces/i-macro';
 import { IMacroResult } from 'src/app/interfaces/i-macro-result';
 import { IAquaMacroDefaultSettings } from 'src/app/interfaces/i-aqua-macro-default-settings';
 import { AquaCalcService } from '../../services/AquaCalcService/aqua-calc.service';
+import { CommonStringsService } from 'src/app/services/CommonStrings/common-strings.service';
 
 @Component({
   selector: 'app-macro',
@@ -14,14 +15,20 @@ export class MacroComponent implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
+    private commonStringsService: CommonStringsService,
     @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern,
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern,
     @Inject('DIGITS_PATTERN') private digitsPattern) {}
 
   private formGroup: FormGroup;
   private macroResult = <IMacroResult>{};
-  private aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{};  
- 
+  private aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{}; 
+  private timesAWeekToolTip = 'Ile razy w tygodniu chcesz podawać nawóz';
+  private nitrogenToolTip = 'Jakie stężenie azotu chcesz uzyskać w akwarium';
+  private phosphorusToolTip = 'Jakie stężenie fosforu chcesz uzyskać w akwarium';
+  private potassiumToolTip = 'Jakie stężenie potasu chcesz uzyskać w akwarium';
+  private magnesiumToolTip = 'Jakie stężenie magnezu chcesz uzyskać w akwarium'; 
+  
   ngOnInit(){
     this.getMacroDefaultSettings();
     this.formGroup = new FormGroup({
@@ -78,8 +85,4 @@ export class MacroComponent implements OnInit {
     },
     error => console.log(error));
   }
-
-  
-
-  
 }

@@ -21,16 +21,6 @@
     const containerCapacity = 'Pojemność zbiornika w którym będzie sporządzany nawóz.';
     const saltGrams = 'Ile gram soli chcesz wsypać?'
 
-    $('#CO2_PH').tooltip({
-        title: 'pH',
-        animation: true
-    });
-
-    $('#CO2_KH').tooltip({
-        title: 'kH',
-        animation: true
-    });
-
     $('.aqua-liters').tooltip({
         title: aquaLiters,
         animation: true

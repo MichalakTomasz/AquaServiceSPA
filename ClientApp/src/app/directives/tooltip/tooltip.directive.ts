@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Renderer2, HostListener, Input } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
 
 @Directive({
   selector: '[tooltip]'
@@ -11,13 +10,13 @@ export class TooltipDirective {
     private renderer: Renderer2) { }
 
     @Input()
-    private value: string;
+    private text: string;
 
     private toolTip;
 
     ngOnInit(): void {
       this.toolTip = this.renderer.createElement('div');
-      this.toolTip.innerText = this.value;
+      this.toolTip.innerText = this.text;
       this.renderer.setStyle(this.toolTip, 'background', 'black');
       this.renderer.setStyle(this.toolTip, 'position', 'absolute');
       this.renderer.setStyle(this.toolTip, 'color', 'white');
@@ -28,6 +27,7 @@ export class TooltipDirective {
       let height = this.elem.nativeElement.offsetHeight * 1.5;
       this.renderer.setStyle(this.toolTip, 'top', this.elem.nativeElement.offsetTop - height + 'px');
       this.renderer.setStyle(this.toolTip, 'left', this.elem.nativeElement.offsetLeft + this.elem.nativeElement.offsetWidth + 'px');
+      this.renderer.setStyle(this.toolTip, 'z-index', '1');
       const nextElement = this.renderer.nextSibling(this.elem.nativeElement);
       this.renderer.insertBefore(this.elem.nativeElement.parentNode, this.toolTip, nextElement);
     }

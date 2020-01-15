@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IExpressResult } from 'src/app/interfaces/i-express-result';
 import { IExpress } from 'src/app/interfaces/i-express';
 import { AquaCalcService } from '../../services/AquaCalcService/aqua-calc.service';
+import { CommonStringsService } from 'src/app/services/CommonStrings/common-strings.service';
 
 @Component({
   selector: 'app-express',
@@ -12,10 +13,12 @@ import { AquaCalcService } from '../../services/AquaCalcService/aqua-calc.servic
 export class ExpressComponent implements OnInit {
 
   private formGroup: FormGroup;
-  private expressResult = <IExpressResult>{}; 
+  private expressResult = <IExpressResult>{};
+  private infoTooltip = 'Kalkulator do sporządzania nawozów każdego w osobnym pojemniku. Po podaniu dwóch parametrów: wielkości akwarum i pojemności pojemnika na nawóz, kalkulator uwzględniając zalecane proporcje nawozów, obliczy ile gram danej soli należy wsypać do danego pojemnika z wodą demineralizowaną. Wynikiem będzie ile miligramów na litr danego składnika będzie zawierał jeden mililitr naszego nawozu.';
 
   constructor(
     private aquaCalcService: AquaCalcService,
+    private commonStringsService: CommonStringsService,
     @Inject('LONG_DIGITS_PATTERN')private longDigitsPattern) { }
 
   ngOnInit() {
