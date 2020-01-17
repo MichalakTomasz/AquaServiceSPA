@@ -59,7 +59,11 @@
             </div>
         </div>
         <div class="form-row offset-u-h2">
-            <a class="btn btn-secondary info-macro offset-1">Instrukcja</a>
+            <a 
+                class="btn btn-secondary offset-1" 
+                clickInfo [text]="infoMessage" [position]="'top'">
+                Instrukcja
+            </a>
             <button class="btn btn-info offset-5" type="submit">Oblicz</button>
         </div>
     </form>

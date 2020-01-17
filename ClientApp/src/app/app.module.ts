@@ -14,6 +14,7 @@ import { ExpressComponent } from './components/express/express.component';
 import { Kno3Component } from './components/kno3/kno3.component';
 import { RoundPipe } from './pipes/round.pipe';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
+import { ClickInfoDirective } from './directives/clickInfo/click-info.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { TooltipDirective } from './directives/tooltip/tooltip.directive';
     ExpressComponent,
     Kno3Component,
     RoundPipe,
-    TooltipDirective
+    TooltipDirective,
+    ClickInfoDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
