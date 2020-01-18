@@ -18,7 +18,7 @@
             <button class="btn btn-info offset-1" type="submit" [disabled]="!formGroup.valid && formGroup.dirty">Oblicz</button>
         </div>
     </form>
-    <p *ngIf="co2Concentration !== undefined" class="text-center offset-u-h2">
+    <p *ngIf="co2Concentration" class="text-center offset-u-h2">
         <span>Przy pH: </span>
         <strong>{{formGroup.get('ph').value}}</strong>
         <span>i kH: </span>

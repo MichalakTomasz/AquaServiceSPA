@@ -15,6 +15,8 @@ import { Kno3Component } from './components/kno3/kno3.component';
 import { RoundPipe } from './pipes/round.pipe';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
 import { ClickInfoDirective } from './directives/clickInfo/click-info.directive';
+import { PopupInfoDirective } from './directives/popupInfo/popup-info.directive';
+import { K2so4Component } from './components/k2so4/k2so4.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { ClickInfoDirective } from './directives/clickInfo/click-info.directive'
     Kno3Component,
     RoundPipe,
     TooltipDirective,
-    ClickInfoDirective
+    ClickInfoDirective,
+    PopupInfoDirective,
+    K2so4Component
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,6 +45,7 @@ import { ClickInfoDirective } from './directives/clickInfo/click-info.directive'
       { path: 'macro', component: MacroComponent },
       { path: 'express', component: ExpressComponent },
       { path: 'kno3', component: Kno3Component },
+      { path: 'k2so4', component: K2so4Component },
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],

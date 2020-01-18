@@ -32,12 +32,12 @@ export class Kno3Component implements OnInit {
       kno3g: new FormControl('', [
         Validators.required, 
         Validators.min(0),
-        Validators.pattern(this.longDigitsPattern)]),
+        Validators.pattern(this.longDigitsPattern)])
     });
   }
 
   onSubmit() {
-    let kno3 : IKno3 = {
+    let kno3: IKno3 = {
       aquaLiters: +this.formGroup.value.aquaLiters,
       containerCapacity: +this.formGroup.value.containerCapacity,
       kno3g: +this.formGroup.value.kno3g

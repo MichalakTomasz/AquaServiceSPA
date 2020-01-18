@@ -10,6 +10,8 @@ import { IExpress } from '../../interfaces/i-express';
 import { IExpressResult } from 'src/app/interfaces/i-express-result';
 import { IKno3 } from 'src/app/interfaces/i-kno3';
 import { IKno3Result } from 'src/app/interfaces/i-kno3-result';
+import { IK2so4 } from 'src/app/interfaces/i-k2so4';
+import { IK2so4Result } from 'src/app/interfaces/i-k2so4-result';
 
 @Injectable()
 export class AquaCalcService {
@@ -36,5 +38,9 @@ export class AquaCalcService {
 
   computeKno3(kno3: IKno3): Observable<IKno3Result>{
     return this.http.post<IKno3Result>(this.url + 'kno3', kno3);
+  }
+
+  computeK2So4(k2so4: IK2so4): Observable<IK2so4Result>{
+    return this.http.post<IK2so4Result>(this.url + 'k2So4', k2so4);
   }
 }

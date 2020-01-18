@@ -18,7 +18,7 @@
             <a class="btn btn-secondary info-express">Instrukcja</a>
         </div>
     </form>
-    <div *ngIf="expressResult?.maxKNO3g !== undefined"
+    <div *ngIf="expressResult?.maxKNO3g"
         class="offset-u-h2 col-10 col-sm-10 col-md-10 offset-1 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1">
         <h5>Maksymalne stężenia nawozów w jednym mililitrze:</h5>
         <ul>
@@ -52,5 +52,5 @@
                 <strong>{{expressResult.optimalConcentrationMginMgSO4MgPerLiter}}</strong> mg/l magnezu</li>
         </ul>
     </div>
-    <div *ngIf="expressResult?.maxKNO3g === undefined" class="offset-d-h22"></div>
+    <div *ngIf="!expressResult?.maxKNO3g" class="offset-d-h22"></div>
 </div>

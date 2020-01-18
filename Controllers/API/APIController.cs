@@ -32,7 +32,7 @@ namespace AquaServiceSPA.Controllers
         public IActionResult Macro([FromBody]Macro macro)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Model is invalid");
+                return BadRequest(ModelState);
 
             var result = aquaCalcService.MacroCompute(macro);
             return Ok(result);
@@ -46,14 +46,14 @@ namespace AquaServiceSPA.Controllers
         public IActionResult Express([FromBody] Express express)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Model is invalid");
+                return BadRequest(ModelState);
 
             var result = aquaCalcService.ExpressCalc(express);
             return Ok(result);
         }
 
         [HttpPost("kno3")]
-        public IActionResult kno3([FromBody] Kno3 kno3)
+        public IActionResult Kno3([FromBody] Kno3 kno3)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -86,6 +86,40 @@ namespace AquaServiceSPA.Controllers
             var result = new Kno3Result
             {
                 NitrogenContent = nitrogenContent,
+                PotassiumContent = potassiumContent
+            };
+            return Ok(result);
+        }
+
+        [HttpPost("k2so4")]
+        public IActionResult K2So4([FromBody] K2so4 k2So4)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var k2So4Solubility = aquaCalcService
+                .Solubility(k2So4.K2so4g, SaltsStaticData.K2SO4SolubilityGramsPer100Ml);
+            var minSaltSolubilityInAmountWater = aquaCalcService
+                .SolubilityInWater(k2So4.ContainerCapacity, SaltsStaticData.K2SO4SolubilityGramsPer100Ml);
+
+            if (k2So4Solubility > k2So4.ContainerCapacity)
+            {
+                var viewModel = new Kno3Result
+                {
+                    Solubility = k2So4Solubility,
+                    SolubilityInAmountWater = minSaltSolubilityInAmountWater
+                };
+                return Ok(viewModel);
+            }
+
+            var potassiumContent = aquaCalcService.ConcentrationIn1Ml(
+                k2So4.AquaLiters,
+                k2So4.K2so4g,
+                k2So4.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.K2SO4ContentK));
+            
+            var result = new Kno3Result
+            {
                 PotassiumContent = potassiumContent
             };
             return Ok(result);
