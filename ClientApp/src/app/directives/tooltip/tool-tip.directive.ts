@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Renderer2, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[tooltip]'
+  selector: '[toolTip]'
 })
-export class TooltipDirective {
+export class ToolTipDirective {
 
   constructor(
     private elem: ElementRef, 

@@ -6,14 +6,14 @@
             <input 
                 class="col form-control col-1 first-input" 
                 formControlName="ph" 
-                tooltip [text]="phToolTip"/>
+                toolTip [text]="phToolTip"/>
         </div>
         <div class="form-group row">
             <label class="col-form-label col-1">kH:</label>
             <input 
                 class="form-control col-1" 
                 formControlName="kh" 
-                tooltip [text]="khToolTip"/>
+                toolTip [text]="khToolTip"/>
             <span class="offset-1">dH (stopnie niemieckie)</span>
             <button class="btn btn-info offset-1" type="submit" [disabled]="!formGroup.valid && formGroup.dirty">Oblicz</button>
         </div>

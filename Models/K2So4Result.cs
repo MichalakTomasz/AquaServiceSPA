@@ -1,6 +1,6 @@
 ﻿namespace AquaServiceSPA.Models
 {
-    public class K2So4Result
+    public class K2so4Result: SaltResult
     {
         public double? PotassiumContent { get; set; }
     }

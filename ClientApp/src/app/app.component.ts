@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AquaCalcService } from './services/AquaCalcService/aqua-calc.service';
-import { CommonStringsService } from './services/CommonStrings/common-strings.service';
+import { AquaCalcService } from './services/aquaCalcService/aqua-calc.service';
+import { CommonStringsService } from './services/commonStrings/common-strings.service';
+import { EmailService } from './services/email/email.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { CommonStringsService } from './services/CommonStrings/common-strings.se
   providers:[
     AquaCalcService,
     CommonStringsService,
+    EmailService,
     { provide: 'BASE_URL', useValue: 'https://localhost:44307/api/' },
     { provide: 'DIGITS_DOUBLE_PRECISION_PATTERN', 
       useValue: '^[0-9]{0,2}[,.]{1}[0-9]{1,2}$|^[0-9]{1,2}[,.]{1}[0-9]{0,2}$|^[0-9]{1,2}$' },

@@ -1,20 +1,30 @@
 ﻿using AquaServiceSPA.Models;
 using AquaServiceSPA.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AquaServiceSPA.Controllers
 {
     [Route("api")]
     public class APIController : ControllerBase
     {
+        private readonly IEmailService emailService;
+        private readonly IEmailSettingsService emailSettingsService;
         private readonly IAquaCalcService aquaCalcService;
+        private readonly IEmailMessageLayoutService emailMessageLayoutService;
         private readonly AquaMacroDefaultSettings aquaMacroDefaultSettings;
 
         public APIController(
+            IEmailService emailService,
+            IEmailSettingsService emailSettingsService,
             IAquaCalcService aquaCalcService,
+            IEmailMessageLayoutService emailMessageLayoutService,
             AquaMacroDefaultSettings aquaMacroDefaultSettings)
         {
+            this.emailService = emailService;
+            this.emailSettingsService = emailSettingsService;
             this.aquaCalcService = aquaCalcService;
+            this.emailMessageLayoutService = emailMessageLayoutService;
             this.aquaMacroDefaultSettings = aquaMacroDefaultSettings;
         }
 
@@ -62,7 +72,7 @@ namespace AquaServiceSPA.Controllers
                 .Solubility(kno3.Kno3g, SaltsStaticData.KNO3SolubilityGramsPer100Ml);
             var minSaltSolubilityInAmountWater = aquaCalcService
                 .SolubilityInWater(kno3.ContainerCapacity, SaltsStaticData.KNO3SolubilityGramsPer100Ml);
-            
+
             if (kno3Solubility > kno3.ContainerCapacity)
             {
                 var viewModel = new Kno3Result
@@ -104,7 +114,7 @@ namespace AquaServiceSPA.Controllers
 
             if (k2So4Solubility > k2So4.ContainerCapacity)
             {
-                var viewModel = new Kno3Result
+                var viewModel = new K2so4Result
                 {
                     Solubility = k2So4Solubility,
                     SolubilityInAmountWater = minSaltSolubilityInAmountWater
@@ -117,12 +127,136 @@ namespace AquaServiceSPA.Controllers
                 k2So4.K2so4g,
                 k2So4.ContainerCapacity,
                 aquaCalcService.Percent(aquaCalcService.K2SO4ContentK));
-            
-            var result = new Kno3Result
+
+            var result = new K2so4Result
             {
                 PotassiumContent = potassiumContent
             };
             return Ok(result);
+        }
+
+        [HttpPost("kh2po4")]
+        public IActionResult Kh2po4([FromBody] Kh2po4 kh2po4)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var kh2po4Solubility = aquaCalcService
+                .Solubility(kh2po4.Kh2po4g, SaltsStaticData.KH2PO4SolubilityGramsPer100Ml);
+            var minSaltSolubilityInAmountWater = aquaCalcService
+                .SolubilityInWater(kh2po4.ContainerCapacity, SaltsStaticData.KH2PO4SolubilityGramsPer100Ml);
+
+            if (kh2po4Solubility > kh2po4.ContainerCapacity)
+            {
+                var viewModel = new K2so4Result
+                {
+                    Solubility = kh2po4Solubility,
+                    SolubilityInAmountWater = minSaltSolubilityInAmountWater
+                };
+                return Ok(viewModel);
+            }
+
+            var phosphorusContent = aquaCalcService.ConcentrationIn1Ml(
+                kh2po4.AquaLiters,
+                kh2po4.Kh2po4g,
+                kh2po4.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.KH2PO4ContentP));
+
+            var potassiumContent = aquaCalcService.ConcentrationIn1Ml(
+                kh2po4.AquaLiters,
+                kh2po4.Kh2po4g,
+                kh2po4.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.KH2PO4ContentK));
+
+            var result = new Kh2po4Result
+            {
+                PhosphorusContent = phosphorusContent,
+                PotassiumContent = potassiumContent
+            };
+            return Ok(result);
+        }
+
+        [HttpPost("mgso4")]
+        public IActionResult MgSO4([FromBody] Mgso4 mgso4)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var solubility = aquaCalcService
+                .Solubility(mgso4.Mgso4g, SaltsStaticData.MgSO4SolubilityGramsPer100Ml);
+            var minSaltSolubilityInAmountWater = aquaCalcService
+                .SolubilityInWater(mgso4.ContainerCapacity, SaltsStaticData.MgSO4SolubilityGramsPer100Ml);
+
+            if (solubility > mgso4.ContainerCapacity)
+            {
+                var viewModel = new Mgso4Result
+                {
+                    Solubility = solubility,
+                    SolubilityInAmountWater = minSaltSolubilityInAmountWater
+                };
+                return Ok(viewModel);
+            }
+
+            var magnesiumContent = aquaCalcService.ConcentrationIn1Ml(
+                mgso4.AquaLiters,
+                mgso4.Mgso4g,
+                mgso4.ContainerCapacity,
+                aquaCalcService.Percent(aquaCalcService.MgSO47H2OContentMg));
+
+            var result = new Mgso4Result
+            {
+                MagnesiumContent = magnesiumContent
+
+            };
+            return Ok(result);
+        }
+
+        [HttpPost("sendcontactemail")]
+        public async Task<IActionResult> SendEmail(Email email)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var emailSettings = emailSettingsService.GetSettings();
+            var contactEmailToMod = new Email
+            {
+                EmailAddress = emailSettings.EmailAddress,
+                Message = emailMessageLayoutService.ContactModMessage(email),
+                Subject = $" [{ConstStrings.Servicename}] - temat: {email.Subject}",
+                Description = email.Description,
+                Username = email.Username
+            };
+
+            await emailService.SendEmailAsync(contactEmailToMod);
+
+            var confirmEmailToUser = new Email
+            {
+                EmailAddress = email.EmailAddress,
+                Message = emailMessageLayoutService.ContactUserFeedback(email.Username, ConstStrings.Servicename),
+                Subject = $"[{ConstStrings.Servicename}] - temat: {email.Subject}"
+            };
+            await emailService.SendEmailAsync(confirmEmailToUser);
+            return Ok(true);
+        }
+
+        [HttpPost("setemailsettings")]
+        public IActionResult SetEmailSettings(EmailSettings emailSettings)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            emailSettingsService.SetSettings(emailSettings);
+            return Ok(true);
+        }
+
+        [HttpGet("getemailsettings")]
+        public IActionResult GetEmailSettings()
+        {
+            var emailSettings = emailSettingsService.GetSettings();
+            if (emailSettings != null)
+                return Ok(emailSettings);
+            else
+                return BadRequest(false);
         }
     }
 }

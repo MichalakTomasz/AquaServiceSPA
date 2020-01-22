@@ -9,21 +9,21 @@
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1 first-input aqua-liters"
                         formControlName="aquaLiters"
-                        tooltip [text]="commonStringsService.aquaLiters" />
+                        toolTip [text]="commonStringsService.aquaLiters" />
                 </div>
                 <div class="form-group">
                     <label>Ilość wody w jakiej będzie sporządzany nawóz:</label>
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
                         formControlName="containerCapacity" 
-                        tooltip [text]="commonStringsService.containerCapacity"/>
+                        toolTip [text]="commonStringsService.containerCapacity"/>
                 </div>
                 <div class="form-group">
                     <label>Ile razy w tygodniu będzie dawkowany nawóz:</label>
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
                         formControlName="timesAWeek"
-                        tooltip [text]="timesAWeekToolTip" />
+                        toolTip [text]="timesAWeekToolTip" />
                 </div>
             </div>
             <div class="col">
@@ -33,35 +33,35 @@
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
                         formControlName="nitrogen" 
-                        tooltip [text]="nitrogenToolTip"/>
+                        toolTip [text]="nitrogenToolTip"/>
                 </div>
                 <div class="form-group">
                     <label>Fosfor:</label>
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1"
                         formControlName="phosphorus"
-                        tooltip [text]="phosphorusToolTip"/>
+                        toolTip [text]="phosphorusToolTip"/>
                 </div>
                 <div class="form-group">
                     <label>Potas:</label>
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
                         formControlName="potassium" 
-                        tooltip [text]="potassiumToolTip"/>
+                        toolTip [text]="potassiumToolTip"/>
                 </div>
                 <div class="form-group">
                     <label>Magnez:</label>
                     <input 
                         class="form-control col-3 col-sm-3 col-md-3 col-lg-2 offset-1" 
                         formControlName="magnesium" 
-                        tooltip [text]="magnesiumToolTip"/>
+                        toolTip [text]="magnesiumToolTip"/>
                 </div>
             </div>
         </div>
         <div class="form-row offset-u-h2">
             <a 
                 class="btn btn-secondary offset-1" 
-                clickInfo [text]="infoMessage">
+                clickInfo [text]="macroInfo">
                 Instrukcja
             </a>
             <button class="btn btn-info offset-5" type="submit" [disabled]="!formGroup.valid">Oblicz</button>

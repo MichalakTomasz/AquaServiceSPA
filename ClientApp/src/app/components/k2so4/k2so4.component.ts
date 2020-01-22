@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AquaCalcService } from 'src/app/services/AquaCalcService/aqua-calc.service';
+import { AquaCalcService } from 'src/app/services/aquaCalcService/aqua-calc.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IK2so4 } from 'src/app/interfaces/i-k2so4';
 import { IK2so4Result } from 'src/app/interfaces/i-k2so4-result';
+import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
 
 @Component({
   selector: 'app-k2so4',
@@ -17,8 +18,8 @@ export class K2so4Component implements OnInit {
   constructor(
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,
     @Inject('BASE_URL') private url: string,
-    private aquaCalcService: AquaCalcService
-  ) { }
+    private aquaCalcService: AquaCalcService,
+    private commonStringsService: CommonStringsService) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -26,14 +27,14 @@ export class K2so4Component implements OnInit {
         Validators.required,
         Validators.min(0),
         Validators.pattern(this.longDigitsPattern)]),
-        containerCapacity: new FormControl('', [
-          Validators.required,
-          Validators.min(0), 
-          Validators.pattern(this.longDigitsPattern)]),
-        k2so4g: new FormControl('', [
-          Validators.required, 
-          Validators.min(0),
-          Validators.pattern(this.longDigitsPattern)]),
+      containerCapacity: new FormControl('', [
+        Validators.required,
+        Validators.min(0), 
+        Validators.pattern(this.longDigitsPattern)]),
+      k2so4g: new FormControl('', [
+        Validators.required, 
+        Validators.min(0),
+        Validators.pattern(this.longDigitsPattern)]),
     });
   }
 
@@ -51,5 +52,10 @@ export class K2so4Component implements OnInit {
       this.k2so4Result.solubilityInAmountWater = result.solubilityInAmountWater;
     }),
     error => console.log(error);
+  }
+
+  onInput() {
+    this.k2so4Result.solubility = null;
+    this.k2so4Result.potassiumContent = null;
   }
 }

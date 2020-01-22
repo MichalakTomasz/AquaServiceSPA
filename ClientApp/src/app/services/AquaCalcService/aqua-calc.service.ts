@@ -12,6 +12,10 @@ import { IKno3 } from 'src/app/interfaces/i-kno3';
 import { IKno3Result } from 'src/app/interfaces/i-kno3-result';
 import { IK2so4 } from 'src/app/interfaces/i-k2so4';
 import { IK2so4Result } from 'src/app/interfaces/i-k2so4-result';
+import { IKh2po4 } from 'src/app/interfaces/i-kh2po4';
+import { IKh2po4Result } from 'src/app/interfaces/i-kh2po4-result';
+import { IMgso4 } from 'src/app/interfaces/i-mgso4';
+import { IMgso4Result } from 'src/app/interfaces/i-mgso4-result';
 
 @Injectable()
 export class AquaCalcService {
@@ -42,5 +46,13 @@ export class AquaCalcService {
 
   computeK2So4(k2so4: IK2so4): Observable<IK2so4Result>{
     return this.http.post<IK2so4Result>(this.url + 'k2So4', k2so4);
+  }
+
+  computeKh2po4(kh2po4: IKh2po4): Observable<IKh2po4Result>{
+    return this.http.post<IKh2po4Result>(this.url + 'kh2po4', kh2po4);
+  }
+
+  computemgso4(mgso4: IMgso4): Observable<IMgso4Result>{
+    return this.http.post<IMgso4Result>(this.url + 'mgso4', mgso4);
   }
 }

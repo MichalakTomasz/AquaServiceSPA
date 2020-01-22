@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { CommonStringsService } from './common-strings.service';
 
 describe('CommonStringsService', () => {

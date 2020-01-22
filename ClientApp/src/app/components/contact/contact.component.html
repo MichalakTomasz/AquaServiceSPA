@@ -1,0 +1,36 @@
+<div class="panel offset-d-h4">
+    <h2 class="offset-1 offset-u-h2 offset-d-h2">Kontakt</h2>
+
+    <p *ngIf="username">{{username}}</p>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="offset-1 col-10 offset-d-h4">
+            <div class="form-group col-6">
+                <label>Email:</label>
+                <input class="form-control first-input"
+                formControlName="model.emailAddress" />
+            </div>
+            <div class="form-group col-6">
+                <label>Temat:</label>
+                <input class="form-control" 
+                    formControlName="model.subject"/>
+            </div>
+            <div class="form-group col-10">
+                <label>Wiadomość:</label>
+                <textarea 
+                    class="form-control" 
+                    style="height:15em;"
+                    formControlName="model.message"></textarea>
+            </div>
+            <div class="form-group col-6">
+                <label>Podpis:</label>
+                <input 
+                    class="form-control"
+                    formControlName="model.description" />
+            </div>
+            <button 
+                type="submit" 
+                class="btn btn-info offset-5"
+                [disabled]="!formGroup.valid">Wyślij</button>
+        </div>
+    </form>
+</div>

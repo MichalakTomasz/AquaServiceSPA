@@ -13,10 +13,13 @@ import { MacroComponent } from './components/macro/macro.component';
 import { ExpressComponent } from './components/express/express.component';
 import { Kno3Component } from './components/kno3/kno3.component';
 import { RoundPipe } from './pipes/round.pipe';
-import { TooltipDirective } from './directives/tooltip/tooltip.directive';
+import { ToolTipDirective } from './directives/tooltip/tool-tip.directive';
 import { ClickInfoDirective } from './directives/clickInfo/click-info.directive';
 import { PopupInfoDirective } from './directives/popupInfo/popup-info.directive';
 import { K2so4Component } from './components/k2so4/k2so4.component';
+import { Kh2po4Component } from './components/kh2po4/kh2po4.component';
+import { Mgso4Component } from './components/mgso4/mgso4.component';
+import { ContactComponent } from './components/contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,10 +31,13 @@ import { K2so4Component } from './components/k2so4/k2so4.component';
     ExpressComponent,
     Kno3Component,
     RoundPipe,
-    TooltipDirective,
+    ToolTipDirective,
     ClickInfoDirective,
     PopupInfoDirective,
-    K2so4Component
+    K2so4Component,
+    Kh2po4Component,
+    Mgso4Component,
+    ContactComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,6 +52,9 @@ import { K2so4Component } from './components/k2so4/k2so4.component';
       { path: 'express', component: ExpressComponent },
       { path: 'kno3', component: Kno3Component },
       { path: 'k2so4', component: K2so4Component },
+      { path: 'kh2po4', component: Kh2po4Component },
+      { path: 'mgso4', component: Mgso4Component },
+      { path: 'contact', component: ContactComponent },
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],

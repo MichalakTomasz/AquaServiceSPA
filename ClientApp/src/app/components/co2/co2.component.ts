@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ICo2 } from 'src/app/interfaces/i-co2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AquaCalcService } from '../../services/AquaCalcService/aqua-calc.service';
+import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.service';
 
 @Component({
   selector: 'app-co2',

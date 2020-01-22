@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AquaCalcService } from 'src/app/services/AquaCalcService/aqua-calc.service';
+import { AquaCalcService } from 'src/app/services/aquaCalcService/aqua-calc.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IKno3 } from 'src/app/interfaces/i-kno3';
 import { IKno3Result } from 'src/app/interfaces/i-kno3-result';
+import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
 
 @Component({
   selector: 'app-kno3',
@@ -17,7 +18,8 @@ export class Kno3Component implements OnInit {
   constructor(
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,
     @Inject('BASE_URL') private url: string,
-    private aquaCalcService: AquaCalcService) { }
+    private aquaCalcService: AquaCalcService,
+    private commonStringsService: CommonStringsService) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -51,5 +53,10 @@ export class Kno3Component implements OnInit {
       this.kno3Result.solubilityInAmountWater = result.solubilityInAmountWater;
     }),
     error => console.log(error);
+  }
+
+  onInput() {
+    this.kno3Result.nitrogenContent = null;
+    this.kno3Result.solubility = null;
   }
 }

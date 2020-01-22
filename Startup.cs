@@ -32,6 +32,14 @@ namespace AquaServiceSPA
 
             services.AddScoped<IAquaCalcService, AquaCalcService>();
             services.AddSingleton(new AquaMacroDefaultSettings());
+            services.AddSingleton<IKeyService, KeyService>();
+            services.AddSingleton<IGenericCryptographicService, GenericCryptographicService>();
+            services.AddSingleton<ICryptographicKeyService, CryptographicKeyService>();
+            services.AddSingleton<IEmailSettingsService, EmailSettingsService>();
+            services.AddSingleton<IEmailSettingsConverter, EmailSettingsConverter>();
+            services.AddSingleton<IEmailService, EmailService>();
+            services.AddSingleton<IEmailMessageLayoutService, EmailMessageLayoutService>();
+            services.AddDataProtection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
