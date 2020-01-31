@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaServiceSPA.Models
 {
@@ -10,14 +7,14 @@ namespace AquaServiceSPA.Models
     public class EmailSettings
     {
         [Required]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; }
         [Required]
-        public string Host { get; set; }
+        public string Smtp { get; set; }
         [Required]
         [Range(minimum: 0, maximum: 9999)]
         public int Port { get; set; }

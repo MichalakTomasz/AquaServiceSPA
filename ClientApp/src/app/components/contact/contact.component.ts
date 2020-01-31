@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IEmail } from 'src/app/interfaces/i-email';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailService } from 'src/app/services/email/email.service';
 
 @Component({
   selector: 'app-contact',
@@ -8,11 +10,31 @@ import { IEmail } from 'src/app/interfaces/i-email';
 })
 export class ContactComponent implements OnInit {
 
-  private model = <IEmail>{};
+  public formGroup: FormGroup;
 
-  constructor() { }
+  constructor(private emailService: EmailService) { }
 
   ngOnInit() {
+    this.formGroup = new FormGroup({
+      username: new FormControl(''),
+      emailAddress: new FormControl('', Validators.required),
+      subject: new FormControl('', Validators.required),
+      message: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required)
+    });
   }
 
+  onSubmit() {
+    let email: IEmail = {
+      username: this.formGroup.value.username,
+      emailAddress: this.formGroup.value.emailAddress,
+      subject: this.formGroup.value.subject,
+      message: this.formGroup.value.message,
+      description: this.formGroup.value.description
+    }
+
+    this.emailService.sendEmail(email)
+    .subscribe(result => console.log(result)),
+    error => console.log(error);
+  }
 }

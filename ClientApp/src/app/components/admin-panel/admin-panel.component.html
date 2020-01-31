@@ -1,0 +1,41 @@
+<div class="panel">
+    <h2>Admin panel</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="offset-1">
+            <div class="form-group col">
+                <label>Nazwa użytkownika:</label>
+                <input formControlName="username" class="form-control"/>
+            </div>
+            <div class="form-group col">
+                <label>Adres email:</label>
+                <input formControlName="emailAddress" class="form-control" type="email"/>
+            </div>
+            <div class="form-group col">
+                <label>Hasło:</label>
+                <input formControlName="password" class="form-control" type="password"/>
+            </div>
+            <div class="form-group col">
+                <label>Smtp:</label>
+                <input formControlName="smtp" class="form-control"/>
+            </div>
+            <div class="form-group col">
+                <label>Port:</label>
+                <input formControlName="port" class="form-control"/>
+            </div>
+            <div class="form-group col">
+                <label>Włącz SSL:</label>
+                <input formControlName="enableSsl" class="form-control" type="checkbox"/>
+            </div>
+            <div class="form-group col">
+                <label>HTML message:</label>
+                <input formControlName="isHtmlMessage" class="form-control" type="checkbox"/>
+            </div>
+            <button 
+                class="btn btn-info" 
+                type="submit" 
+                [disabled]="!formGroup.valid">
+                Wyślij
+            </button>
+        </div>
+    </form>
+</div>

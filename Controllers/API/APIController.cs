@@ -212,7 +212,7 @@ namespace AquaServiceSPA.Controllers
         }
 
         [HttpPost("sendcontactemail")]
-        public async Task<IActionResult> SendEmail(Email email)
+        public async Task<IActionResult> SendEmail([FromBody]Email email)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -240,7 +240,7 @@ namespace AquaServiceSPA.Controllers
         }
 
         [HttpPost("setemailsettings")]
-        public IActionResult SetEmailSettings(EmailSettings emailSettings)
+        public IActionResult SetEmailSettings([FromBody]EmailSettings emailSettings)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

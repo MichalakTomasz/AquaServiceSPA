@@ -12,8 +12,8 @@ import { CommonStringsService } from 'src/app/services/commonStrings/common-stri
 })
 export class Kh2po4Component implements OnInit {
 
-  private formGroup: FormGroup;
-  private kh2po4Result = <IKh2po4Result>{};
+  public formGroup: FormGroup;
+  public kh2po4Result = <IKh2po4Result>{};
 
   constructor(
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,

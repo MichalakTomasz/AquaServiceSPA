@@ -25,10 +25,10 @@ namespace AquaServiceSPA.Services
                     mailMessage.IsBodyHtml = emailSettings.IsHtmlMessage;
                     using (var smtpClient = new SmtpClient())
                     {
-                        smtpClient.Host = emailSettings.Host;
+                        smtpClient.Host = emailSettings.Smtp;
                         smtpClient.Port = emailSettings.Port;
                         smtpClient.Credentials = 
-                            new NetworkCredential(emailSettings.UserName, emailSettings.Password);
+                            new NetworkCredential(emailSettings.Username, emailSettings.Password);
                         smtpClient.EnableSsl = emailSettings.EnableSsl;
                         await Task.Run(() => smtpClient.Send(mailMessage));
                     }

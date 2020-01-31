@@ -1,5 +1,7 @@
 ﻿using AquaServiceSPA.Models;
 using Microsoft.AspNetCore.DataProtection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AquaServiceSPA.Services
 {
@@ -7,23 +9,24 @@ namespace AquaServiceSPA.Services
     {
         private readonly IEmailSettingsConverter emailSettingsConverter;
         private readonly IDataProtector dataProtector;
-        private readonly IKeyService keysService;
+        private readonly IEncryptedDataStoreService encryptedDtaStoreService;
 
         public EmailSettingsService(
             IEmailSettingsConverter emailSettingsConverter,
             IDataProtectionProvider dataProtector,
-            IKeyService keysService,
+            IEnumerable<IEncryptedDataStoreService> encryptedDataStoreServices,
             ICryptographicKeyService cryptographicKeyService)
         {
             var key = cryptographicKeyService.GetKey();
             this.emailSettingsConverter = emailSettingsConverter;
             this.dataProtector = dataProtector.CreateProtector(key);
-            this.keysService = keysService;
+            encryptedDtaStoreService = encryptedDataStoreServices
+                .FirstOrDefault(f => f.GetType() == typeof(EncryptedEmailSettingsStoreService));
         }
 
         public EmailSettings GetSettings()
         {
-            var encryptedSettings = keysService.GetEncrypted();
+            var encryptedSettings = encryptedDtaStoreService.GetEncrypted();
             var decryptedArrayBuffer = dataProtector.Unprotect(encryptedSettings);
             return emailSettingsConverter.ToEmailEettings(decryptedArrayBuffer);
         }
@@ -32,7 +35,7 @@ namespace AquaServiceSPA.Services
         {
             var emailSettingsBufferArray = emailSettingsConverter.ToByteBuffer(settings);
             var encryptedSettings = dataProtector.Protect(emailSettingsBufferArray);
-            keysService.SetEncrypted(encryptedSettings);
+            encryptedDtaStoreService.SetEncrypted(encryptedSettings);
         }
     }
 }

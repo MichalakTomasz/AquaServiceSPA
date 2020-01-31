@@ -20,6 +20,7 @@ import { K2so4Component } from './components/k2so4/k2so4.component';
 import { Kh2po4Component } from './components/kh2po4/kh2po4.component';
 import { Mgso4Component } from './components/mgso4/mgso4.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ContactComponent } from './components/contact/contact.component';
     K2so4Component,
     Kh2po4Component,
     Mgso4Component,
-    ContactComponent
+    ContactComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,6 +57,7 @@ import { ContactComponent } from './components/contact/contact.component';
       { path: 'kh2po4', component: Kh2po4Component },
       { path: 'mgso4', component: Mgso4Component },
       { path: 'contact', component: ContactComponent },
+      { path: 'kjplolo', component: AdminPanelComponent },
       { path: '**', component: PageNotFoundComponent }
     ]),
   ],

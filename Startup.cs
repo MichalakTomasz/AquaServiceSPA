@@ -1,13 +1,13 @@
+using AquaServiceSPA.DataModel;
 using AquaServiceSPA.Models;
 using AquaServiceSPA.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Text.Json;
 
 namespace AquaServiceSPA
 {
@@ -30,16 +30,22 @@ namespace AquaServiceSPA
                 configuration.RootPath = "ClientApp/dist";
             });
 
+            services.AddDbContext<AquaServiceSPADBContext>(o =>
+            o.UseSqlite(Configuration["ConnectionStrings:AquaDB"]));
+
             services.AddScoped<IAquaCalcService, AquaCalcService>();
             services.AddSingleton(new AquaMacroDefaultSettings());
-            services.AddSingleton<IKeyService, KeyService>();
-            services.AddSingleton<IGenericCryptographicService, GenericCryptographicService>();
-            services.AddSingleton<ICryptographicKeyService, CryptographicKeyService>();
-            services.AddSingleton<IEmailSettingsService, EmailSettingsService>();
-            services.AddSingleton<IEmailSettingsConverter, EmailSettingsConverter>();
-            services.AddSingleton<IEmailService, EmailService>();
-            services.AddSingleton<IEmailMessageLayoutService, EmailMessageLayoutService>();
+            services.AddScoped<IEncryptedDataStoreService, EncryptedKeyStoreService>();
+            services.AddScoped<IEncryptedDataStoreService, EncryptedEmailSettingsStoreService>();
+            services.AddScoped<IGenericCryptographicService, GenericCryptographicService>();
+            services.AddScoped<ICryptographicKeyService, CryptographicKeyService>();
+            services.AddScoped<IEmailSettingsService, EmailSettingsService>();
+            services.AddScoped<IEmailSettingsConverter, EmailSettingsConverter>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEmailMessageLayoutService, EmailMessageLayoutService>();
             services.AddDataProtection();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

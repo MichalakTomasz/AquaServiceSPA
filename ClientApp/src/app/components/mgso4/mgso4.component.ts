@@ -12,8 +12,8 @@ import { IMgso4 } from 'src/app/interfaces/i-mgso4';
 })
 export class Mgso4Component implements OnInit {
 
-  private formGroup: FormGroup;
-  private mgso4Result = <IMgso4Result>{}
+  public formGroup: FormGroup;
+  public mgso4Result = <IMgso4Result>{}
 
   constructor(
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,

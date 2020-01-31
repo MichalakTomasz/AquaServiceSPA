@@ -12,9 +12,9 @@ import { CommonStringsService } from 'src/app/services/commonStrings/common-stri
 })
 export class ExpressComponent implements OnInit {
 
-  private formGroup: FormGroup;
-  private expressResult = <IExpressResult>{};
-  private expressInfo = 'Kalkulator do sporządzania nawozów każdego w osobnym pojemniku. Po podaniu dwóch parametrów: wielkości akwarium i pojemności pojemnika na nawóz (ml), kalkulator uwzględniając zalecane proporcje nawozów, obliczy ile gram danej soli należy wsypać do danego pojemnika z wodą demineralizowaną. Wynikiem będzie ile miligramów na litr danego składnika będzie zawierał jeden mililitr naszego nawozu.';
+  public formGroup: FormGroup;
+  public expressResult = <IExpressResult>{};
+  public expressInfo = 'Kalkulator do sporządzania nawozów każdego w osobnym pojemniku. Po podaniu dwóch parametrów: wielkości akwarium i pojemności pojemnika na nawóz (ml), kalkulator uwzględniając zalecane proporcje nawozów, obliczy ile gram danej soli należy wsypać do danego pojemnika z wodą demineralizowaną. Wynikiem będzie ile miligramów na litr danego składnika będzie zawierał jeden mililitr naszego nawozu.';
 
   constructor(
     private aquaCalcService: AquaCalcService,

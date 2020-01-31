@@ -12,8 +12,8 @@ import { CommonStringsService } from 'src/app/services/commonStrings/common-stri
 })
 export class Kno3Component implements OnInit {
 
-  private formGroup: FormGroup;
-  private kno3Result = <IKno3Result>{};
+  public formGroup: FormGroup;
+  public kno3Result = <IKno3Result>{};
 
   constructor(
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,

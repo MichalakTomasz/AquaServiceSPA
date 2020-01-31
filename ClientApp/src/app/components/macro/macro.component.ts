@@ -20,15 +20,15 @@ export class MacroComponent implements OnInit {
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern,
     @Inject('DIGITS_PATTERN') private digitsPattern) {}
 
-  private formGroup: FormGroup;
-  private macroResult = <IMacroResult>{};
-  private aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{}; 
-  private timesAWeekToolTip = 'Ile razy w tygodniu chcesz podawać nawóz';
-  private nitrogenToolTip = 'Jakie stężenie azotu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
-  private phosphorusToolTip = 'Jakie stężenie fosforu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
-  private potassiumToolTip = 'Jakie stężenie potasu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
-  private magnesiumToolTip = 'Jakie stężenie magnezu chcesz uzyskać po tygodniowym dawkowaniu nawozu'; 
-  private macroInfo = '"Kalkulator Makro" służy do sporządzenia nawozu z wymaganych soli mineralnych w jednym pojemniku. W miejscu "Parametry do sporządzenia nawozu" podajemy: ile litrów wody (bez podłoża, kamieni, korzeni, roślin, ect.) mamy w akwarium. Następnie podajemy w jakiej ilości wody będziemy mieszać nawóz oraz ile razy w tygodniu chcemy podawać nawóz. Następnie podajemy jakie stężenia pierwiastków (azotu, fosforu, potasu, magnezu) chcemy uzyskać po tygodniowym dawkowaniu nawozu. Jeżeli mamy zamiar zrobić nawóz bez jakiegoś składnika w jego mijscu wpisujemy 0. Kalkulator oblicza ile gram każdej soli musimy dodać do ustalonej wcześniej ilości wody demineralizowanej i ilość mililitrów jednorazowej dawki nawozu.';
+  public formGroup: FormGroup;
+  public macroResult = <IMacroResult>{};
+  public aquaMacroDefaultSettings = <IAquaMacroDefaultSettings>{}; 
+  public timesAWeekToolTip = 'Ile razy w tygodniu chcesz podawać nawóz';
+  public nitrogenToolTip = 'Jakie stężenie azotu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
+  public phosphorusToolTip = 'Jakie stężenie fosforu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
+  public potassiumToolTip = 'Jakie stężenie potasu chcesz uzyskać po tygodniowym dawkowaniu nawozu';
+  public magnesiumToolTip = 'Jakie stężenie magnezu chcesz uzyskać po tygodniowym dawkowaniu nawozu'; 
+  public macroInfo = '"Kalkulator Makro" służy do sporządzenia nawozu z wymaganych soli mineralnych w jednym pojemniku. W miejscu "Parametry do sporządzenia nawozu" podajemy: ile litrów wody (bez podłoża, kamieni, korzeni, roślin, ect.) mamy w akwarium. Następnie podajemy w jakiej ilości wody będziemy mieszać nawóz oraz ile razy w tygodniu chcemy podawać nawóz. Następnie podajemy jakie stężenia pierwiastków (azotu, fosforu, potasu, magnezu) chcemy uzyskać po tygodniowym dawkowaniu nawozu. Jeżeli mamy zamiar zrobić nawóz bez jakiegoś składnika w jego mijscu wpisujemy 0. Kalkulator oblicza ile gram każdej soli musimy dodać do ustalonej wcześniej ilości wody demineralizowanej i ilość mililitrów jednorazowej dawki nawozu.';
 
   ngOnInit(){
     this.getMacroDefaultSettings();

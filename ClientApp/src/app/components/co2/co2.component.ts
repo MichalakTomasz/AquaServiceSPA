@@ -10,10 +10,10 @@ import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.servic
 })
 export class Co2Component implements OnInit {
 
-  private formGroup: FormGroup;
-  private co2Concentration: number;
-  private phToolTip: string;
-  private khToolTip: string;
+  public formGroup: FormGroup;
+  public co2Concentration: number;
+  public phToolTip: string;
+  public khToolTip: string;
 
   constructor(
     private aquaCalcService: AquaCalcService,

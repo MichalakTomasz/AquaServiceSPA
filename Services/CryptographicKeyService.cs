@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AquaServiceSPA.Services
 {
     public class CryptographicKeyService : ICryptographicKeyService
     {
-        private readonly IKeyService keyService;
+        private readonly IEncryptedDataStoreService keyService;
         private readonly IGenericCryptographicService genericCryptographicService;
         public CryptographicKeyService(
-            IKeyService keyService,
+            IEnumerable<IEncryptedDataStoreService> keyServices,
             IGenericCryptographicService genericCryptographicService)
         {
-            this.keyService = keyService;
+            keyService = keyServices
+                .FirstOrDefault(f => f.GetType() == typeof(EncryptedKeyStoreService));
             this.genericCryptographicService = genericCryptographicService;
         }
+
         private string GenerateKey()
         {
             var random = new Random();
