@@ -1,5 +1,5 @@
 export interface IEmail {
-    username: string;
+    username:string;
     emailAddress: string;
     message: string;
     subject: string;

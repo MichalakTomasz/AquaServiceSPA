@@ -1,4 +1,4 @@
-﻿namespace AquaServiceSPA.Services
+﻿namespace AquaServiceSPA.Models
 {
     public class ConstValues
     {

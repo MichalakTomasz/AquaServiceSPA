@@ -23,7 +23,6 @@ namespace AquaServiceSPA.Services
             var random = new Random();
             return random.Next(int.MaxValue).ToString();
         }
-
         public string GetKey()
         {
             var encryptedKey = keyService.GetEncrypted();

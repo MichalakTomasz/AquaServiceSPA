@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IEmailSettings } from 'src/app/interfaces/i-email-settings';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmailService } from 'src/app/services/email/email.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel',
@@ -12,11 +13,12 @@ export class AdminPanelComponent implements OnInit {
 
   public formGroup: FormGroup;
 
-  constructor(private emailService: EmailService) { }
+  constructor(
+    private emailService: EmailService,
+    private router: Router) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      username: new FormControl('', Validators.required),
       emailAddress: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       smtp: new FormControl('', Validators.required),
@@ -27,8 +29,11 @@ export class AdminPanelComponent implements OnInit {
   }
 
   onSubmit() {
+    let emailAddress: string = this.formGroup.value.emailAddress;
+    let emailAddressLength = emailAddress.indexOf('@');
+    let username = emailAddress.substring(0, emailAddressLength);
     let emailSettings: IEmailSettings = {
-      username: this.formGroup.value.username,
+      username: username,
       emailAddress: this.formGroup.value.emailAddress,
       password: this.formGroup.value.password,
       smtp: this.formGroup.value.smtp,
@@ -38,7 +43,9 @@ export class AdminPanelComponent implements OnInit {
     };
 
     this.emailService.sendEmailSettings(emailSettings)
-    .subscribe(result => { console.log('email settings sent') }), 
+    .subscribe(result => { 
+      console.log('email settings sent');
+    }), 
     error => console.log(error);
   }
 }

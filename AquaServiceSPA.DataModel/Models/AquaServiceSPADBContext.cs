@@ -8,6 +8,7 @@ namespace AquaServiceSPA.DataModel
             : base(options) { }
         public DbSet<EmailSettingsTable> EmailSettings { get; set; }
         public DbSet<Key> KeyTable { get; set; }
+        public DbSet<Visit> Visit { get; set; }
     }
 }
                                                                                                  

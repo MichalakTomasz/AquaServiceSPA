@@ -11,15 +11,15 @@ namespace AquaServiceSPA.Services
             => this.dbContext = dbContext;
 
         public byte[] GetEncrypted()
-            => dbContext.EmailSettings.FirstOrDefault()?.Buffer;
+            => dbContext.EmailSettings.FirstOrDefault()?.EncryptedBuffer;
 
         public void SetEncrypted(byte[] buffer)
         {
             var encryptedTempEmailSettings = dbContext.EmailSettings.FirstOrDefault();
             if (encryptedTempEmailSettings == null)
-                dbContext.EmailSettings.Add(new EmailSettingsTable { Buffer = buffer });
+                dbContext.EmailSettings.Add(new EmailSettingsTable { EncryptedBuffer = buffer });
             else
-                encryptedTempEmailSettings.Buffer = buffer;
+                encryptedTempEmailSettings.EncryptedBuffer = buffer;
 
             dbContext.SaveChanges();
         }

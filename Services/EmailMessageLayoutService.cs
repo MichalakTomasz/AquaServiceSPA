@@ -9,7 +9,7 @@ namespace AquaServiceSPA.Services
             => $"<div><p><strong>date: </strong>{DateTime.Now}</p><p><strong>email address: </strong>{email.EmailAddress}</p><p><strong>user name: </strong>{email.Username}</p><p><strong>Subject: </strong>{email.Subject}</p><p><strong>Description: </strong>{email.Description}</p><p><strong>Message: </strong></p><div>{email.Message}</div></div>";
 
         public string ContactUserFeedback(string userName, string serviceName)
-            => $"<div><p> Witamy {userName},</p><p>Twoja wiadomość została zarejestrowana w systemie. Postaramy się na nią niebawem odpowiedzieć. Dziękujemy za podzelenie się z nami Twoimi sugestiami, uwagami.</p><p>Pozdrawiamy serdecznie, załoga portalu {serviceName}</p><p><small>To jest wiadomość automatyczna, prosimy na nią nie odpisywać.</small></p></div>";
+            => $"<div><p> Witamy {userName},</p><p>Twoja wiadomość została zarejestrowana w systemie. Niebawem zostanie przeanalizowane i udzielimy odpowiedzi. Dziękujemy za wiadomość.</p><p>Pozdrawiamy serdecznie, załoga portalu {serviceName}.</p><p><small>To jest wiadomość automatyczna, prosimy na nią nie odpisywać.</small></p></div>";
 
         public string ConfirmEmailMessage(string serviceName, string confirmLink)
             => $"<div><p>Wiadomość z serwisu {serviceName}</p><a href=\"{confirmLink}\">Kliknij link aby dokończyć porces rejestracji</a><p>Jeżeli nie brałeś udziału w rejestacji zignoruj tą wiadomość</p><p><small>To jest wiadomość automatyczna, prosimy na nią nie odpisywać.</small></p></div>";

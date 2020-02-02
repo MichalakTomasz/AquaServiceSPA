@@ -12,6 +12,7 @@ namespace AquaServiceSPA.Controllers
         private readonly IEmailSettingsService emailSettingsService;
         private readonly IAquaCalcService aquaCalcService;
         private readonly IEmailMessageLayoutService emailMessageLayoutService;
+        private readonly IVisitService visitService;
         private readonly AquaMacroDefaultSettings aquaMacroDefaultSettings;
 
         public APIController(
@@ -19,12 +20,14 @@ namespace AquaServiceSPA.Controllers
             IEmailSettingsService emailSettingsService,
             IAquaCalcService aquaCalcService,
             IEmailMessageLayoutService emailMessageLayoutService,
+            IVisitService visitService,
             AquaMacroDefaultSettings aquaMacroDefaultSettings)
         {
             this.emailService = emailService;
             this.emailSettingsService = emailSettingsService;
             this.aquaCalcService = aquaCalcService;
             this.emailMessageLayoutService = emailMessageLayoutService;
+            this.visitService = visitService;
             this.aquaMacroDefaultSettings = aquaMacroDefaultSettings;
         }
 
@@ -257,6 +260,13 @@ namespace AquaServiceSPA.Controllers
                 return Ok(emailSettings);
             else
                 return BadRequest(false);
+        }
+
+        [HttpGet("savevisit")]
+        public async Task<IActionResult> SaveVisit()
+        {
+            var ip = await visitService.AddAsync();
+            return Ok(ip);
         }
     }
 }

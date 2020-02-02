@@ -7,15 +7,18 @@ import { IEmailSettings } from 'src/app/interfaces/i-email-settings';
 @Injectable()
 export class EmailService {
 
+  private baseUrl: string;
+
   constructor(
-    private http: HttpClient,
-    @Inject('BASE_URL') private url) { }
+    private http: HttpClient) { 
+      this.baseUrl = location.origin + '/api/';
+    }
 
   sendEmail(email: IEmail): Observable<boolean> {
-    return this.http.post<boolean>(this.url + 'sendcontactemail', email);
+    return this.http.post<boolean>(this.baseUrl + 'sendcontactemail', email);
   }
 
   sendEmailSettings(sendEmailSettings: IEmailSettings): Observable<boolean> {
-    return this.http.post<boolean>(this.url + 'setemailsettings', sendEmailSettings);
+    return this.http.post<boolean>(this.baseUrl + 'setemailsettings', sendEmailSettings);
   }
 }

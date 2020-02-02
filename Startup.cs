@@ -3,6 +3,7 @@ using AquaServiceSPA.Models;
 using AquaServiceSPA.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -44,8 +45,8 @@ namespace AquaServiceSPA
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailMessageLayoutService, EmailMessageLayoutService>();
             services.AddDataProtection();
-
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IVisitService, VisitService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

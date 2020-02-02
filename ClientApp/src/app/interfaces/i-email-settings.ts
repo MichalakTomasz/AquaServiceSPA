@@ -1,7 +1,7 @@
 export interface IEmailSettings {
     username: string;
-    password: string;
     emailAddress: string;
+    password: string;
     smtp: string;
     port: number;
     enableSsl: boolean;

@@ -20,39 +20,42 @@ import { IMgso4Result } from 'src/app/interfaces/i-mgso4-result';
 @Injectable()
 export class AquaCalcService {
 
+  private baseUrl: string;
+
   constructor(
-    private http: HttpClient,
-    @Inject('BASE_URL') private url: string) { }
+    private http: HttpClient) { 
+      this.baseUrl = location.origin + '/api/';
+    }
 
   computeCo2(co2: ICo2): Observable<number>{
-    return this.http.post<number>(this.url + 'co2', co2);
+    return this.http.post<number>(this.baseUrl + 'co2', co2);
   }
 
   getMacroDafautSettings(): Observable<IAquaMacroDefaultSettings> {
-    return this.http.get<IAquaMacroDefaultSettings>(this.url + 'macrodefaultdata')
+    return this.http.get<IAquaMacroDefaultSettings>(this.baseUrl + 'macrodefaultdata')
   }
 
   computeMacro(macro: IMacro): Observable<IMacroResult>{
-    return this.http.post<IMacroResult>(this.url + 'macro', macro);
+    return this.http.post<IMacroResult>(this.baseUrl + 'macro', macro);
   }
 
   computeExpress(express: IExpress): Observable<IExpressResult>{
-    return this.http.post<IExpressResult>(this.url + 'express', express)
+    return this.http.post<IExpressResult>(this.baseUrl + 'express', express)
   }
 
   computeKno3(kno3: IKno3): Observable<IKno3Result>{
-    return this.http.post<IKno3Result>(this.url + 'kno3', kno3);
+    return this.http.post<IKno3Result>(this.baseUrl + 'kno3', kno3);
   }
 
   computeK2So4(k2so4: IK2so4): Observable<IK2so4Result>{
-    return this.http.post<IK2so4Result>(this.url + 'k2So4', k2so4);
+    return this.http.post<IK2so4Result>(this.baseUrl + 'k2So4', k2so4);
   }
 
   computeKh2po4(kh2po4: IKh2po4): Observable<IKh2po4Result>{
-    return this.http.post<IKh2po4Result>(this.url + 'kh2po4', kh2po4);
+    return this.http.post<IKh2po4Result>(this.baseUrl + 'kh2po4', kh2po4);
   }
 
   computemgso4(mgso4: IMgso4): Observable<IMgso4Result>{
-    return this.http.post<IMgso4Result>(this.url + 'mgso4', mgso4);
+    return this.http.post<IMgso4Result>(this.baseUrl + 'mgso4', mgso4);
   }
 }
