@@ -1,28 +1,32 @@
-<div class="panel">
-    <h2>Admin panel</h2>
+<div class="panel offset-d-h18">
+    <h2 class="offset-1 offset-u-h2">Admin panel</h2>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="offset-1">
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
+                <label>Nazwa użytkownika:</label>
+                <input formControlName="username" class="form-control" />
+            </div>
+            <div class="form-group col col-8 offset-1">
                 <label>Adres email:</label>
                 <input formControlName="emailAddress" class="form-control" type="email"/>
             </div>
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
                 <label>Hasło:</label>
                 <input formControlName="password" class="form-control" type="password"/>
             </div>
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
                 <label>Smtp:</label>
                 <input formControlName="smtp" class="form-control"/>
             </div>
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
                 <label>Port:</label>
                 <input formControlName="port" class="form-control"/>
             </div>
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
                 <label>Włącz SSL:</label>
                 <input formControlName="enableSsl" class="form-control" type="checkbox"/>
             </div>
-            <div class="form-group col">
+            <div class="form-group col col-8 offset-1">
                 <label>HTML message:</label>
                 <input formControlName="isHtmlMessage" class="form-control" type="checkbox"/>
             </div>

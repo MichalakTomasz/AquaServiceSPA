@@ -51,7 +51,6 @@ export class ClickInfoDirective {
       }
     }
 
-    console.log(this.position);
     this.renderer.setStyle(this.info, 'z-index', '1');
     const nextElement = this.renderer.nextSibling(this.elem.nativeElement);
     this.renderer.insertBefore(this.elem.nativeElement.parentNode, this.info, nextElement);

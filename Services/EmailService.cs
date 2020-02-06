@@ -25,6 +25,7 @@ namespace AquaServiceSPA.Services
                     mailMessage.IsBodyHtml = emailSettings.IsHtmlMessage;
                     using (var smtpClient = new SmtpClient())
                     {
+                        smtpClient.Timeout = 200000;
                         smtpClient.Host = emailSettings.Smtp;
                         smtpClient.Port = emailSettings.Port;
                         smtpClient.Credentials = 

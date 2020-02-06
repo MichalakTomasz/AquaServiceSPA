@@ -1,21 +1,26 @@
-<div class="panel offset-d-h15">
+<div class="panel offset-d-h15 offset-d-h30">
     <h2 class="offset-1 offset-u-h2">Kalkulator CO2</h2>
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="offset-1 offset-u-h2">
+    <form 
+        [formGroup]="formGroup" 
+        (ngSubmit)="onSubmit()" 
+        class="offset-1 offset-u-h2">
         <div class="form-group row">
             <label class="col-form-label col-1">pH:</label>
             <input 
                 class="col form-control col-1 first-input" 
                 formControlName="ph" 
-                toolTip [text]="phToolTip"/>
+                toolTip [text]="phToolTip"
+                (input)="onInput()"/>
         </div>
         <div class="form-group row">
             <label class="col-form-label col-1">kH:</label>
             <input 
                 class="form-control col-1" 
                 formControlName="kh" 
-                toolTip [text]="khToolTip"/>
+                toolTip [text]="khToolTip"
+                (input)="onInput()"/>
             <span class="offset-1">dH (stopnie niemieckie)</span>
-            <button class="btn btn-info offset-1" type="submit" [disabled]="!formGroup.valid && formGroup.dirty">Oblicz</button>
+            <button class="btn btn-info offset-1" type="submit" [disabled]="!formGroup.valid">Oblicz</button>
         </div>
     </form>
     <p *ngIf="co2Concentration" class="text-center offset-u-h2">
@@ -27,5 +32,7 @@
         <strong>{{co2Concentration}}</strong>
         <span>mg/l</span>
     </p>
-    <h5 class="text-center">Przyjmuje się, że stężenie powinno zawierać się w przedziale: 15-30 mg/l</h5>
+    <div *ngIf="!co2Concentration" class="offset-d-h4"></div>
+    <h5 class="text-center  offset-d-h4">Przyjmuje się, że stężenie powinno zawierać się w przedziale: 15-30 mg/l</h5>
+    
 </div>

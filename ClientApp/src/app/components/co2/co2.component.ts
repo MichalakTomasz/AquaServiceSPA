@@ -47,4 +47,8 @@ export class Co2Component implements OnInit {
      this.aquaCalcService.computeCo2(co2)
      .subscribe(result => this.co2Concentration = result);
   }
+
+  onInput() {
+    this.co2Concentration = null;
+  }
 }

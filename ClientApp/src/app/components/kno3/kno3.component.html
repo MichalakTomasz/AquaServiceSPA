@@ -37,12 +37,14 @@
     </form>
     <div 
         *ngIf="kno3Result.solubility" 
-        class="text-center offset-d-h5 offset-u-h2 offset-1 col-10">
+        class="text-center offset-u-h2 offset-1 col-10">
             Za mała ilość wody do rozpuszczenia soli. Aby rozpuścić <strong>{{formGroup.get('kno3g').Value}}</strong> g soli, potrzebne jest <strong>{{kno3Result.solubility | round: 2}}</strong> ml wody demineralizowanej. W <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody można rozpuścić maksymalnie <strong>{{kno3Result.solubilityInAmountWater}}</strong> g soli.
     </div>
-    <div *ngIf="kno3Result.nitrogenContent" class="text-center offset-d-h7 offset-u-h2 offset-1 col-10">
+    <div 
+        *ngIf="kno3Result.nitrogenContent" 
+        class="text-center offset-d-h31 offset-u-h2 offset-1 col-10">
         Po wymieszaniu <strong>{{formGroup.get('kno3g').value}}</strong> g soli w <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody, jeden ml roztworu będzie zawierał <strong>{{kno3Result.nitrogenContent | round: 2}}       
         </strong> mg/l azotu i <strong>{{kno3Result.potassiumContent | round: 2}}</strong> mg/l potasu.
     </div>
-    <div *ngIf="!kno3Result.nitrogenContent" class="offset-d-h10"></div>
+    <div *ngIf="!kno3Result.nitrogenContent" class="offset-d-h35"></div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IEmail } from 'src/app/interfaces/i-email';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmailService } from 'src/app/services/email/email.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -10,13 +11,17 @@ import { EmailService } from 'src/app/services/email/email.service';
 })
 export class ContactComponent implements OnInit {
 
-  public formGroup: FormGroup;
+  formGroup: FormGroup;
 
-  constructor(private emailService: EmailService) { }
+  constructor(
+    private emailService: EmailService,
+    private router: Router) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      emailAddress: new FormControl('', Validators.required),
+      username: new FormControl(''),
+      emailAddress: new FormControl('', 
+      [Validators.required, Validators.email]),
       subject: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
@@ -35,5 +40,7 @@ export class ContactComponent implements OnInit {
     this.emailService.sendEmail(email)
     .subscribe(result => console.log(result)),
     error => console.log(error);
+
+    this.router.navigate(['messagesent'])
   }
 }

@@ -2,6 +2,6 @@
 {
     public class ConstStrings
     {
-        public const string Servicename = "Kalkulator Akwatysty";
+        public const string Servicename = "Kalkulator Akwarysty";
     }
 }

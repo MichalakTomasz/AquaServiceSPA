@@ -1,0 +1,13 @@
+div {
+    background-color: rgb(52, 58, 64);
+    color: silver;
+    padding: 10px;
+}
+a{
+    color: silver;
+}
+
+a:hover{
+    color: honeydew;
+    text-decoration: none;
+}

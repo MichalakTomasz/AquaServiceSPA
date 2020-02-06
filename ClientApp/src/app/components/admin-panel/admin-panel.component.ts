@@ -19,21 +19,20 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      emailAddress: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      emailAddress: new FormControl('', 
+      [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       smtp: new FormControl('', Validators.required),
       port: new FormControl('', Validators.required),
-      enableSsl: new FormControl(),
-      isHtmlMessage: new FormControl()
+      enableSsl: new FormControl(false),
+      isHtmlMessage: new FormControl(false)
     });
   }
 
   onSubmit() {
-    let emailAddress: string = this.formGroup.value.emailAddress;
-    let emailAddressLength = emailAddress.indexOf('@');
-    let username = emailAddress.substring(0, emailAddressLength);
     let emailSettings: IEmailSettings = {
-      username: username,
+      username: this.formGroup.value.username,
       emailAddress: this.formGroup.value.emailAddress,
       password: this.formGroup.value.password,
       smtp: this.formGroup.value.smtp,

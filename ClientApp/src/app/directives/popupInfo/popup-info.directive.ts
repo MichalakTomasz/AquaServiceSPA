@@ -36,11 +36,7 @@ export class PopupInfoDirective {
         this.renderer.insertBefore(
           this.elem.nativeElement.parentNode, 
           this.info, nextElement);    
-        console.log(this.info.height);
       }
       else this.info.visibility = 'hidden';
-
-    
-
   }
 }

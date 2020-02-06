@@ -36,15 +36,18 @@
             </div>
         </div>
     </form>
-    <div *ngIf="mgso4Result.solubility" class="text-center offset-d-h5 offset-u-h2 offset-1 col-10">
+    <div 
+        *ngIf="mgso4Result.solubility" 
+        class="text-center offset-d-h5 offset-u-h2 offset-1 col-10">
         Za mała ilość wody do rozpuszczenia soli. Aby rozpuścić <strong>{{formGroup.get('mgso4g').value}}</strong> g soli, potrzebne
         jest <strong>{{mgso4Result.solubility | round: 2}}</strong> ml wody demineralizowanej. W
         <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody można rozpuścić maksymalnie
         <strong>{{mgso4Result.solubilityInAmountWater | round: 2}}</strong> g soli.
     </div>
-    <div *ngIf="mgso4Result.magnesiumContent" class="text-center offset-d-h7 offset-u-h2 offset-1 col-10">Po wymieszaniu
+    <div 
+        *ngIf="mgso4Result.magnesiumContent" class="text-center offset-d-h31 offset-u-h2 offset-1 col-10">Po wymieszaniu
         <strong>{{formGroup.get('mgso4g').value}}</strong> g soli w <strong>{{formGroup.get('containerCapacity').value}}</strong> ml wody,
         jeden ml roztworu będzie zawierał <strong>{{mgso4Result.magnesiumContent | round: 2}}</strong> mg/l
         magnezu.</div>
-    <div *ngIf="!mgso4Result.magnesiumContent" class="offset-d-h10"></div>
+    <div *ngIf="!mgso4Result.magnesiumContent" class="offset-d-h35"></div>
 </div>

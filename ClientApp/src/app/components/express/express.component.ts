@@ -82,4 +82,8 @@ export class ExpressComponent implements OnInit {
     }),
     error => console.log(error);  
   }
+
+  onInput() {
+    this.expressResult.maxKNO3g = null;
+  }
 }

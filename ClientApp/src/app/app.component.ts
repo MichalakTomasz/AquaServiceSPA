@@ -23,11 +23,10 @@ export class AppComponent {
   constructor(private visitService: VisitService) {}
 
   title = 'app';
-  ip: string;
+  private ip: string;
 
   ngOnInit(): void {
     this.visitService.saveVisit()
-    .subscribe(result => this.ip = result),
-    error => console.log(error);
+    .subscribe(result => this.ip = result)
   }
 }

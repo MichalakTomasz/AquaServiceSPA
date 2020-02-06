@@ -1,5 +1,8 @@
 .panel{
-  background-color: rgb(189, 255, 244);
+  background-color: rgb(196, 233, 245);
+}
+body{
+  background-color: snow;
 }
 .offset-d-h2 {
   padding-bottom: 2em;
@@ -77,12 +80,28 @@
   padding-bottom: 22em;
 }
 
+.offset-d-h26 {
+  padding-bottom: 26em;
+}
+
 .offset-d-h30 {
   padding-bottom: 30em;
 }
 
+.offset-d-h31 {
+  padding-bottom: 31em;
+}
+
 .offset-d-h34 {
   padding-bottom: 34em;
+}
+
+.offset-d-h35 {
+  padding-bottom: 35em;
+}
+
+.offset-d-h36 {
+  padding-bottom: 36em;
 }
 
 .offset-d-h38 {
