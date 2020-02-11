@@ -23,6 +23,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { MessageSentComponent } from './components/message-sent/message-sent.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AppRoutingModule } from './app.routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,22 +51,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'co2', component: Co2Component },
-      { path: 'macro', component: MacroComponent },
-      { path: 'express', component: ExpressComponent },
-      { path: 'kno3', component: Kno3Component },
-      { path: 'k2so4', component: K2so4Component },
-      { path: 'kh2po4', component: Kh2po4Component },
-      { path: 'mgso4', component: Mgso4Component },
-      { path: 'contact', component: ContactComponent },
-      { path: 'messagesent', component: MessageSentComponent },
-      { path: 'kjplolo', component: AdminPanelComponent },
-      { path: '**', component: PageNotFoundComponent }
-    ]),
-  ],
+    AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

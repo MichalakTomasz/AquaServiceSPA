@@ -18,7 +18,7 @@ export class ExpressComponent implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
-    private commonStringsService: CommonStringsService,
+    public commonStringsService: CommonStringsService,
     @Inject('LONG_DIGITS_PATTERN')private longDigitsPattern) { }
 
   ngOnInit() {

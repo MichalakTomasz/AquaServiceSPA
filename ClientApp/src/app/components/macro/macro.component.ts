@@ -15,7 +15,7 @@ export class MacroComponent implements OnInit {
 
   constructor(
     private aquaCalcService: AquaCalcService,
-    private commonStringsService: CommonStringsService,
+    public commonStringsService: CommonStringsService,
     @Inject('DIGITS_DOUBLE_PRECISION_PATTERN') private digitsDoublePrecisionPattern,
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern,
     @Inject('DIGITS_PATTERN') private digitsPattern) {}

@@ -19,7 +19,7 @@ export class K2so4Component implements OnInit {
     @Inject('LONG_DIGITS_PATTERN') private longDigitsPattern: string,
     @Inject('BASE_URL') private url: string,
     private aquaCalcService: AquaCalcService,
-    private commonStringsService: CommonStringsService) { }
+    public commonStringsService: CommonStringsService) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
