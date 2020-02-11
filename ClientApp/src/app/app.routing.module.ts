@@ -12,6 +12,7 @@ import { ContactComponent } from "./components/contact/contact.component";
 import { MessageSentComponent } from "./components/message-sent/message-sent.component";
 import { AdminPanelComponent } from "./components/admin-panel/admin-panel.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { GridTestComponent } from "./components/grid-test/grid-test.component";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'messagesent', component: MessageSentComponent },
     { path: 'kjplolo', component: AdminPanelComponent },
+    { path: 'gridtest', component: GridTestComponent },
     { path: '**', component: PageNotFoundComponent }
 ]
 

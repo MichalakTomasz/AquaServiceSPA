@@ -1,7 +1,7 @@
-import { IColumn } from "./i-column";
+import { IColumnHeader } from "./i-column-header";
 
 export interface IOptions {
-    columns: IColumn [],
+    columnHeaders: IColumnHeader [],
     isRadOnly: boolean,
     rowsPerPage: number
 }
