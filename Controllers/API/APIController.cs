@@ -223,6 +223,8 @@ namespace AquaServiceSPA.Controllers
             if (!ModelState.IsValid)
             {
                 loggerService.Log("SendContactEmailAction - ModelState invalid");
+                loggerService.Log($"Email address: {email.EmailAddress}, Subject: {email.Subject}" +
+                    $", Message: {email.Message}, Description: {email.Description}, Username: {email.Username}");
                 loggerService.Log(ModelState.Values.ToString());
                 return BadRequest(ModelState);
             }
