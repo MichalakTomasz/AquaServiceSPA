@@ -14,6 +14,7 @@ namespace AquaServiceSPA.Controllers
         private readonly IEmailMessageLayoutService emailMessageLayoutService;
         private readonly IVisitService visitService;
         private readonly AquaMacroDefaultSettings aquaMacroDefaultSettings;
+        private readonly ILoggerService loggerService;
 
         public APIController(
             IEmailService emailService,
@@ -21,7 +22,8 @@ namespace AquaServiceSPA.Controllers
             IAquaCalcService aquaCalcService,
             IEmailMessageLayoutService emailMessageLayoutService,
             IVisitService visitService,
-            AquaMacroDefaultSettings aquaMacroDefaultSettings)
+            AquaMacroDefaultSettings aquaMacroDefaultSettings,
+            ILoggerService loggerService)
         {
             this.emailService = emailService;
             this.emailSettingsService = emailSettingsService;
@@ -29,6 +31,7 @@ namespace AquaServiceSPA.Controllers
             this.emailMessageLayoutService = emailMessageLayoutService;
             this.visitService = visitService;
             this.aquaMacroDefaultSettings = aquaMacroDefaultSettings;
+            this.loggerService = loggerService;
         }
 
         [HttpPost("co2")]
@@ -218,7 +221,11 @@ namespace AquaServiceSPA.Controllers
         public async Task<IActionResult> SendEmail([FromBody]Email email)
         {
             if (!ModelState.IsValid)
+            {
+                loggerService.Log("SendContactEmailAction - ModelState invalid");
+                loggerService.Log(ModelState.Values.ToString());
                 return BadRequest(ModelState);
+            }
 
             var emailSettings = emailSettingsService.GetSettings();
             var contactEmailToMod = new Email

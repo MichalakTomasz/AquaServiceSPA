@@ -21,40 +21,79 @@ export class DataGridComponent implements OnInit {
   tableElement: ElementRef
 
   ngOnInit() {
-    if (this.dataSource && this.options?.columnHeaders) {
-      let headerRowElem = this.renderer.createElement('tr')
-      this.options.columnHeaders.forEach((column, index) => {
-        if (column.isVisible) {
-          let columnElem = this.renderer.createElement('th')
-          if (column.displayName) {
-            columnElem.innerText = columnElem.displayName
-          }
-          else if (column.name) {
-            columnElem.innerText = column.name
-          }
-          else if (this.dataSource[0][index]) {
-            columnElem.innerText = this.dataSource[0][index].name
-          }
-          else {
-            columnElem.innerText = index.toString()
-          }
-          this.renderer.appendChild(headerRowElem, columnElem)
-          this.renderer.appendChild(this.tableElement, headerRowElem)
+    this.InitializeOptions()
+    this.createColumnHeaders()
+    this.createContent()
+  }
+
+  InitializeOptions() {
+    if (this.dataSource) {
+      if (this.options === undefined) {
+        this.options = <IOptions>{}
+        this.options.isRadOnly = true
+        this.options.rowsPerPage = 10
+      }
+    }
+  }
+
+  createColumnHeaders() {
+    let headerRowElem = this.renderer.createElement('tr')
+    if (this.options.columnHeaders) {
+      this.options.columnHeaders.forEach((column) => {
+        let columnElem = this.renderer.createElement('th')
+        if (column.displayName) {
+          columnElem.innerText = column.displayName
+          this.renderer.addClass(columnElem, column.name)
+        }
+        else if (column.name) {
+          columnElem.innerText = column.name
+          this.renderer.addClass(columnElem, column.name)
+        }
+        if (column.isVisible === false)
+          columnElem.style.visibility = 'hidden'
+
+        this.renderer.appendChild(headerRowElem, columnElem)
+        this.renderer.appendChild(
+          this.tableElement.nativeElement, headerRowElem)
+      })
+    } else {
+      this.dataSource[0].cells.forEach(cell => {
+        let cellElem = this.renderer.createElement('th')
+        cellElem.innerText = cell.name
+        this.renderer.addClass(cellElem, cell.name)
+        this.renderer.appendChild(headerRowElem, cellElem)
+      })
+      this.renderer.appendChild(
+        this.tableElement.nativeElement, headerRowElem)
+    }
+  }
+
+  createContent() {
+    this.dataSource.forEach(row => {
+      let rowElem = this.renderer.createElement('tr')
+      let headerRowElem = this.tableElement.nativeElement.firstChild
+
+      row.cells.forEach((cell, index) => {
+        let columnHeaders = this.options.columnHeaders
+        let cellElem = this.renderer.createElement('td')
+        if (this.hasClass(headerRowElem.childNodes[index], cell.name)) {
+          cellElem.innerText = cell.value
+
+          if (!columnHeaders[index].isVisible)
+            cellElem.style.visibility = 'hidden'
+
+          this.renderer.appendChild(rowElem, cellElem)
         }
       })
-      this.dataSource.forEach(row => {
-        let rowElem = this.renderer.createElement('tr')
-        row.cells.forEach((cell, index) => {
-          let columnHeaders = this.options.columnHeaders
-          if (cell.name == columnHeaders[index].name &&
-            columnHeaders[index].isVisible) {
-            let cellElem = this.renderer.createElement('td')
-            cellElem.innerText = cell.value
-            this.renderer.appendChild(rowElem, cellElem)
-          }
-        })
-        this.renderer.appendChild(this.tableElement, rowElem)
-      })
-    }
+      this.renderer.appendChild(this.tableElement.nativeElement, rowElem)
+    })
+  }
+
+  hasClass(elem: any, cssClass: string): boolean {
+    let result = false;
+    elem.classList.forEach(f => {
+      if (f === cssClass) result = true
+    });
+    return result;
   }
 }

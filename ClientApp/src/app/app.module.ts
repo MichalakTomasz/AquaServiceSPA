@@ -49,9 +49,7 @@ import { DataGridModule } from './modules/data-grid/data-grid.module';
     MessageSentComponent,
     FooterComponent,
     GridTestComponent,
-    DataGridComponent,
-    DataGridModule
-  ],
+    DataGridComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,

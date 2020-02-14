@@ -25,7 +25,7 @@ namespace AquaServiceSPA.Services
             }
         }
 
-        public EmailSettings ToEmailEettings(byte[] buffer)
+        public EmailSettings ToEmailSettings(byte[] buffer)
         {
             try
             {
