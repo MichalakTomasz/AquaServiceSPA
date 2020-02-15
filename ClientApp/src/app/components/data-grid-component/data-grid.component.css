@@ -1,0 +1,16 @@
+table {
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+
+  tr:nth-child(2n+3){
+    background-color: silver;
+  }
+
+  tr:hover:not(:first-child){
+    background-color: lawngreen;
+  }

@@ -11,11 +11,11 @@ export class ClickInfoDirective {
   ) { }
 
   @Input()
-  private text: string;
+  text: string;
 
   //you can use: left, right, top, bottom
   @Input()
-  private position = 'right';
+  position = 'right';
 
   private info: any;
 

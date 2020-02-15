@@ -11,10 +11,10 @@ export class PopupInfoDirective {
   ) { }
 
   @Input()
-  private text: string;
+  text: string;
 
   @Input()
-  private position = 'right';
+  position = 'right';
 
   private info: any;
 

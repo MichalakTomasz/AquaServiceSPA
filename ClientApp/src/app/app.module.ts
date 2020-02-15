@@ -25,8 +25,7 @@ import { MessageSentComponent } from './components/message-sent/message-sent.com
 import { FooterComponent } from './components/footer/footer.component';
 import { AppRoutingModule } from './app.routing.module';
 import { GridTestComponent } from './components/grid-test/grid-test.component';
-import { DataGridComponent } from './modules/data-grid/data-grid-component/data-grid.component';
-import { DataGridModule } from './modules/data-grid/data-grid.module';
+import { DataGridComponent } from './components/data-grid-component/data-grid.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, Input, ElementRef, ViewChild } from '@angular/core'
-import { IOptions } from '../interfaces/i-options'
-import { IRow } from '../interfaces/i-row'
+import { IOptions } from '../../interfaces/i-options'
+import { IRow } from '../../interfaces/i-row'
 
 @Component({
   selector: 'dataGrid',
