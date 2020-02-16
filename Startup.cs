@@ -36,6 +36,7 @@ namespace AquaServiceSPA
 
             services.AddScoped<IAquaCalcService, AquaCalcService>();
             services.AddSingleton(new AquaMacroDefaultSettings());
+            services.AddTransient<IKeyGeneratorService, KeyGeneratorService>();
             services.AddScoped<IEncryptedDataStoreService, EncryptedKeyStoreService>();
             services.AddScoped<IEncryptedDataStoreService, EncryptedEmailSettingsStoreService>();
             services.AddScoped<IGenericCryptographicService, GenericCryptographicService>();

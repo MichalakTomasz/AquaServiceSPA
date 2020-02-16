@@ -38,7 +38,7 @@ namespace AquaServiceSPA.Controllers
         public IActionResult CO2([FromBody]CO2 co2)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Model is invalid");
+                return BadRequest(ModelState);
 
             var result = aquaCalcService.Co2Concentration(co2.Kh, co2.Ph);
             return Ok(result);
