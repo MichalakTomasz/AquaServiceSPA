@@ -5,13 +5,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AquaServiceSPA.Services
 {
-    public class EmailSettingsConverter : IEmailSettingsConverter
+    public class AESKeyConverterService : IAESKeyConverterService
     {
         private readonly ILoggerService loggerService;
-        public EmailSettingsConverter(ILoggerService loggerService)
+
+        public AESKeyConverterService(ILoggerService loggerService)
             => this.loggerService = loggerService;
 
-        public byte[] ToByteBuffer(EmailSettings emailAddressSettings)
+        public byte[] ToByteBuffer(AESKey emailAddressSettings)
         {
             try
             {
@@ -28,21 +29,22 @@ namespace AquaServiceSPA.Services
             }
         }
 
-        public EmailSettings ToEmailSettings(byte[] buffer)
+        public AESKey ToAESKey(byte[] buffer)
         {
             try
             {
                 var binaryFormatter = new BinaryFormatter();
                 using (var memoryStream = new MemoryStream(buffer))
                 {
-                    return (EmailSettings)binaryFormatter.Deserialize(memoryStream);
+                    return (AESKey)binaryFormatter.Deserialize(memoryStream);
                 }
             }
             catch (Exception e)
             {
-                loggerService.Log($"EmailSettingsConverter error: {e.Message}");
+                loggerService.Log($"AESKeyConverterService error: {e.Message}");
                 return default;
             }
         }
     }
 }
+

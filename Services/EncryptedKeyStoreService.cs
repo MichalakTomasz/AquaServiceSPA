@@ -17,13 +17,7 @@ namespace AquaServiceSPA.Services
         }
 
         public byte[] GetEncrypted()
-        {
-            var result = dbBContext.KeyTable.FirstOrDefault()?.EncryptedKey;
-            if (result != null)
-                loggerService.Log("Encrypted key loaded form database correctly.");
-            else loggerService.Log("While loading encrypted key from database was returned null.");
-            return result;
-        }
+            => dbBContext.KeyTable.FirstOrDefault()?.EncryptedKey;
 
         public void SetEncrypted(byte[] key)
         {

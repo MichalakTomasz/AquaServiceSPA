@@ -1,9 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using AquaServiceSPA.Models;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace AquaServiceSPA.Services
 {
@@ -11,51 +8,38 @@ namespace AquaServiceSPA.Services
     {
         private readonly IEncryptedDataStoreService keyService;
         private readonly IGenericCryptographicService genericCryptographicService;
-        private readonly ILoggerService loggerService;
-        private readonly IConfiguration configuration;
+        private readonly IAESCryptographicService aesCryptographicService;
+        private readonly IAESKeyConverterService aesConverterService;
 
         public CryptographicKeyService(
             IEnumerable<IEncryptedDataStoreService> keyServices,
             IGenericCryptographicService genericCryptographicService,
-            ILoggerService loggerService,
-            IConfiguration configuration)
+            IAESCryptographicService aesCryptographicService,
+            IAESKeyConverterService aesConverterService)
         {
             keyService = keyServices
                 .FirstOrDefault(f => f.GetType() == typeof(EncryptedKeyStoreService));
             this.genericCryptographicService = genericCryptographicService;
-            this.loggerService = loggerService;
-            this.configuration = configuration;
+            this.aesCryptographicService = aesCryptographicService;
+            this.aesConverterService = aesConverterService;
         }
 
-        private string GenerateKey()
+        private AESKey GenerateKey()
+            => aesCryptographicService.GenerateKey();
+
+        public AESKey GetKey()
         {
-            var random = new Random();
-            return random.Next(int.MaxValue).ToString(CultureInfo.InvariantCulture);
-        }
-        public string GetKey()
-        {
-            return configuration["Key"]; 
             var encryptedKey = keyService.GetEncrypted();
             if (encryptedKey != null)
             {
                 var decryptedKeyArray = genericCryptographicService.Decrypt(encryptedKey);
-
-                if (decryptedKeyArray == null)
-                    loggerService.Log("CryptographicKeyService-GetKey Decrypt returned null");
-                else loggerService.Log("CryptographicKeyService-GetKey Decrypt returned not null value");
-
-                return Encoding.Unicode.GetString(decryptedKeyArray);
+                
+                return aesConverterService.ToAESKey(decryptedKeyArray);
             }
             else
             {
                 var newKey = GenerateKey();
-
-                if (newKey == null)
-                    loggerService.Log("CryptographicKeyService-GetKey GenerateKey returned null");
-                else
-                    loggerService.Log("CryptographicKeyService-GetKey Decrypt returned not null value");
-
-                var keyArray = Encoding.Unicode.GetBytes(newKey);
+                var keyArray = aesConverterService.ToByteBuffer(newKey);
                 var encryptedKeyArray = genericCryptographicService.Encrypt(keyArray);
                 keyService.SetEncrypted(encryptedKeyArray);
                 return newKey;

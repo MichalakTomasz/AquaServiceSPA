@@ -36,6 +36,8 @@ namespace AquaServiceSPA
 
             services.AddScoped<IAquaCalcService, AquaCalcService>();
             services.AddSingleton(new AquaMacroDefaultSettings());
+            services.AddSingleton<IAESKeyConverterService, AESKeyConverterService>();
+            services.AddSingleton<IAESCryptographicService, AESCryptographicService>();
             services.AddTransient<IKeyGeneratorService, KeyGeneratorService>();
             services.AddScoped<IEncryptedDataStoreService, EncryptedKeyStoreService>();
             services.AddScoped<IEncryptedDataStoreService, EncryptedEmailSettingsStoreService>();
@@ -45,7 +47,6 @@ namespace AquaServiceSPA
             services.AddScoped<IEmailSettingsConverter, EmailSettingsConverter>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailMessageLayoutService, EmailMessageLayoutService>();
-            services.AddDataProtection();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IVisitService, VisitService>();
             services.AddTransient<ILoggerService, FileLoggerService>();

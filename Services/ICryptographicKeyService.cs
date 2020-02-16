@@ -1,7 +1,9 @@
-﻿namespace AquaServiceSPA.Services
+﻿using AquaServiceSPA.Models;
+
+namespace AquaServiceSPA.Services
 {
     public interface ICryptographicKeyService
     {
-        string GetKey();
+        AESKey GetKey();
     }
 }
