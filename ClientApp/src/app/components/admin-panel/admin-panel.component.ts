@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IEmailSettings } from 'src/app/interfaces/i-email-settings';
+import { IEmailSettings } from '../../interfaces/i-email-settings';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { EmailService } from 'src/app/services/email/email.service';
+import { EmailService } from '../../services/email/email.service';
 import { Router } from '@angular/router';
 
 @Component({

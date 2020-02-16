@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IExpressResult } from 'src/app/interfaces/i-express-result';
-import { IExpress } from 'src/app/interfaces/i-express';
+import { IExpressResult } from '../../interfaces/i-express-result';
+import { IExpress } from '../../interfaces/i-express';
 import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.service';
 import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
 

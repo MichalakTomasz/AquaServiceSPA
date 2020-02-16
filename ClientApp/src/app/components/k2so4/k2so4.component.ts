@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AquaCalcService } from 'src/app/services/aquaCalcService/aqua-calc.service';
+import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IK2so4 } from 'src/app/interfaces/i-k2so4';
-import { IK2so4Result } from 'src/app/interfaces/i-k2so4-result';
-import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
+import { IK2so4 } from '../../interfaces/i-k2so4';
+import { IK2so4Result } from '../../interfaces/i-k2so4-result';
+import { CommonStringsService } from '../../services/commonStrings/common-strings.service';
 
 @Component({
   selector: 'app-k2so4',

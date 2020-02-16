@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IMacro } from 'src/app/interfaces/i-macro';
-import { IMacroResult } from 'src/app/interfaces/i-macro-result';
-import { IAquaMacroDefaultSettings } from 'src/app/interfaces/i-aqua-macro-default-settings';
+import { IMacro } from '../../interfaces/i-macro';
+import { IMacroResult } from '../../interfaces/i-macro-result';
+import { IAquaMacroDefaultSettings } from '../../interfaces/i-aqua-macro-default-settings';
 import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.service';
-import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
+import { CommonStringsService } from '../../services/commonStrings/common-strings.service';
 
 @Component({
   selector: 'app-macro',

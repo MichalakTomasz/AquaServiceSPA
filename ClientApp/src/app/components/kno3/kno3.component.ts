@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AquaCalcService } from 'src/app/services/aquaCalcService/aqua-calc.service';
+import { AquaCalcService } from '../../services/aquaCalcService/aqua-calc.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IKno3 } from 'src/app/interfaces/i-kno3';
-import { IKno3Result } from 'src/app/interfaces/i-kno3-result';
-import { CommonStringsService } from 'src/app/services/commonStrings/common-strings.service';
+import { IKno3 } from '../../interfaces/i-kno3';
+import { IKno3Result } from '../../interfaces/i-kno3-result';
+import { CommonStringsService } from '../../services/commonStrings/common-strings.service';
 
 @Component({
   selector: 'app-kno3',

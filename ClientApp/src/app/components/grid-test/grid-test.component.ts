@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IOptions } from 'src/app/interfaces/i-options';
-import { IRow } from 'src/app/interfaces/i-row';
+import { IOptions } from '../../interfaces/i-options';
+import { IRow } from '../../interfaces/i-row';
 
 @Component({
   selector: 'app-grid-test',
