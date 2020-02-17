@@ -33,7 +33,6 @@ namespace AquaServiceSPA.Services
             if (encryptedKey != null)
             {
                 var decryptedKeyArray = genericCryptographicService.Decrypt(encryptedKey);
-                
                 return aesConverterService.ToAESKey(decryptedKeyArray);
             }
             else

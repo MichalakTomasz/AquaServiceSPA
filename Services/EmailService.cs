@@ -9,9 +9,14 @@ namespace AquaServiceSPA.Services
     public class EmailService : IEmailService
     {
         private readonly IEmailSettingsService emailSettingsService;
+        private readonly ILoggerService loggerService;
 
-        public EmailService(IEmailSettingsService emailSettingsService)
-            => this.emailSettingsService = emailSettingsService;
+        public EmailService(IEmailSettingsService emailSettingsService,
+            ILoggerService loggerService)
+        {
+            this.emailSettingsService = emailSettingsService;
+            this.loggerService = loggerService;
+        }
 
         public async Task SendEmailAsync(Email email)
         {
@@ -25,7 +30,6 @@ namespace AquaServiceSPA.Services
                     mailMessage.IsBodyHtml = emailSettings.IsHtmlMessage;
                     using (var smtpClient = new SmtpClient())
                     {
-                        smtpClient.Timeout = 200000;
                         smtpClient.Host = emailSettings.Smtp;
                         smtpClient.Port = emailSettings.Port;
                         smtpClient.Credentials = 
@@ -37,7 +41,7 @@ namespace AquaServiceSPA.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                loggerService.Log($"Send email exception - {e.Message}");
             }
         }
     }
