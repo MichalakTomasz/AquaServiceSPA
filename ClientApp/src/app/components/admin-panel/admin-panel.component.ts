@@ -21,7 +21,7 @@ export class AdminPanelComponent implements OnInit {
     this.formGroup = new FormGroup({
       username: new FormControl('', Validators.required),
       emailAddress: new FormControl('', 
-      [Validators.required, Validators.email]),
+      {validators:[Validators.required, Validators.email], updateOn: 'blur'}),
       password: new FormControl('', Validators.required),
       smtp: new FormControl('', Validators.required),
       port: new FormControl('', Validators.required),

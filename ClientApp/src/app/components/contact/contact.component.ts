@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
     this.formGroup = new FormGroup({
       username: new FormControl(''),
       emailAddress: new FormControl('', 
-      [Validators.required, Validators.email]),
+      {validators: [Validators.required, Validators.email], updateOn: 'blur'}),
       subject: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
